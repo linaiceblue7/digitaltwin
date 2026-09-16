@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Цифровой двойник ЭЗС — Росатом</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-mark">
+        <<div class="logo-mark">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Rosatom_logo.svg" alt="Росатом" style="height: 32px;">
+</div>
+      </div>
+      <div class="logo-text">
+        <div class="logo-title">РОСАТОМ</div>
+        <div class="logo-sub">Сеть зарядных станций</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#kpi-section">Метрики</a>
+      <a href="#map-section">Карта</a>
+      <a href="#table-section">Локации</a>
+      <a href="#about">О проекте</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="pulse-dot"></span>
+      Цифровой двойник · Прототип 2026
+    </div>
+    <h1>Оптимальное размещение <span class="gradient">электрозарядных станций</span> в мегаполисе</h1>
+    <p>Система анализирует транспортный спрос, мощность городских подстанций и экономику, чтобы определить — где, когда и какой мощности строить ЭЗС.</p>
+    <div class="hero-tags">
+      <span class="tag">⚡ Москва</span>
+      <span class="tag">📊 20 приоритетных локаций</span>
+      <span class="tag">💰 NPV · IRR · Окупаемость</span>
+      <span class="tag">🔋 Учёт энергосети</span>
+    </div>
+    <div class="hero-scroll">
+      <a href="#kpi-section" class="scroll-btn">Смотреть результаты →</a>
+    </div>
+  </div>
+</section>
+
+<section id="kpi-section" class="section">
+  <div class="section-head">
+    <div class="section-label">01 — Метрики</div>
+    <h2>Ключевые показатели проекта</h2>
+    <p class="section-sub">Агрегированные значения по 20 приоритетным локациям</p>
+  </div>
+  <div class="kpi-grid" id="kpiGrid"></div>
+</section>
+
+<section id="map-section" class="section section-alt">
+  <div class="section-head">
+    <div class="section-label">02 — Карта</div>
+    <h2>Карта приоритетных локаций</h2>
+    <p class="section-sub">Кликните на точку, чтобы увидеть экономику станции</p>
+  </div>
+  <div class="map-controls">
+    <div class="control-group">
+      <label>Минимальная мощность</label>
+      <select id="powerFilter">
+        <option value="0">Все станции</option>
+        <option value="50">от 50 кВт</option>
+        <option value="150">от 150 кВт</option>
+        <option value="350">350 кВт</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label>Показать топ <span id="topValue">20</span></label>
+      <input type="range" id="topFilter" min="5" max="20" value="20" />
+    </div>
+    <div class="legend">
+      <div class="legend-item"><span class="dot green"></span>50 кВт</div>
+      <div class="legend-item"><span class="dot yellow"></span>150 кВт</div>
+      <div class="legend-item"><span class="dot red"></span>350 кВт</div>
+    </div>
+  </div>
+  <div id="map"></div>
+</section>
+
+<section id="table-section" class="section">
+  <div class="section-head">
+    <div class="section-label">03 — Локации</div>
+    <h2>Топ приоритетных локаций</h2>
+    <p class="section-sub">Отсортированы по интегральному скору: спрос + энергосеть − расстояние до подстанции</p>
+  </div>
+  <div class="table-wrap">
+    <table id="locTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Мощность</th>
+          <th>Спрос</th>
+          <th>CAPEX</th>
+          <th>NPV</th>
+          <th>IRR</th>
+          <th>Окупаемость</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="about" class="section section-alt">
+  <div class="section-head">
+    <div class="section-label">04 — О проекте</div>
+    <h2>Как работает система</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-card">
+      <div class="about-num">01</div>
+      <h3>Данные</h3>
+      <p>Собираем слои: транспортный трафик, точки притяжения, население, существующие ЭЗС, мощности трансформаторных подстанций.</p>
+    </div>
+    <div class="about-card">
+      <div class="about-num">02</div>
+      <h3>Прогноз спроса</h3>
+      <p>ML-модель на XGBoost прогнозирует почасовую загрузку каждой потенциальной станции с учётом сегмента пользователей.</p>
+    </div>
+    <div class="about-card">
+      <div class="about-num">03</div>
+      <h3>Оптимизация</h3>
+      <p>Многокритериальный оптимизатор: максимум покрытия спроса, минимум CAPEX, учёт свободной мощности подстанции, минимальное расстояние подключения.</p>
+    </div>
+    <div class="about-card">
+      <div class="about-num">04</div>
+      <h3>Экономика</h3>
+      <p>Для каждой локации считаем NPV, IRR, срок окупаемости за 10 лет с дисконтированием 12%.</p>
+    </div>
+  </div>
+  <div class="problem-block">
+    <div class="problem-col">
+      <h3>Проблема</h3>
+      <p>Сегодня ЭЗС размещают эмпирически — у торговых центров, вдоль магистралей. Часть станций простаивает, часть перегружена. Инвестиции не окупаются.</p>
+    </div>
+    <div class="problem-col">
+      <h3>Наше решение</h3>
+      <p>Цифровой двойник города — единая система, которая отвечает: где, когда и какой мощности строить ЭЗС, чтобы сеть была загружена, а сеть города не перегружена.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="footer-title">РОСАТОМ</div>
+      <div class="footer-sub">Сеть зарядных станций</div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-meta">Прототип цифрового двойника</div>
+      <div class="footer-meta">© 2026</div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
