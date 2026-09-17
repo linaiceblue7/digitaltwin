@@ -3,85 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Цифровой двойник ЭЗС — Росатом</title>
+<title>Цифровой двойник зарядной инфраструктуры</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Unbounded:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header class="header">
-  <div class="header-inner">
-    <div class="logo">
-      <div class="logo-mark">
-        <<div class="logo-mark">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Rosatom_logo.svg" alt="Росатом" style="height: 32px;">
-</div>
-      </div>
-      <div class="logo-text">
-        <div class="logo-title">РОСАТОМ</div>
-        <div class="logo-sub">Сеть зарядных станций</div>
-      </div>
-    </div>
-    <nav class="nav">
-      <a href="#kpi-section">Метрики</a>
-      <a href="#map-section">Карта</a>
-      <a href="#table-section">Локации</a>
-      <a href="#about">О проекте</a>
-    </nav>
+<!-- ВЕРХНЯЯ ПОЛОСА -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>РОСАТОМ · СЕТЬ ЗАРЯДНЫХ СТАНЦИЙ</span>
+    <span class="topbar-sep">|</span>
+    <span>РОССИЙСКИЙ УНИВЕРСИТЕТ ТРАНСПОРТА</span>
   </div>
-</header>
+</div>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-inner">
-    <div class="hero-badge">
-      <span class="pulse-dot"></span>
-      Цифровой двойник · Прототип 2026
-    </div>
-    <h1>Оптимальное размещение <span class="gradient">электрозарядных станций</span> в мегаполисе</h1>
-    <p>Система анализирует транспортный спрос, мощность городских подстанций и экономику, чтобы определить — где, когда и какой мощности строить ЭЗС.</p>
-    <div class="hero-tags">
-      <span class="tag">⚡ Москва</span>
-      <span class="tag">📊 20 приоритетных локаций</span>
-      <span class="tag">💰 NPV · IRR · Окупаемость</span>
-      <span class="tag">🔋 Учёт энергосети</span>
-    </div>
-    <div class="hero-scroll">
-      <a href="#kpi-section" class="scroll-btn">Смотреть результаты →</a>
+    <h1 class="hero-title">
+      <span class="line-1">Цифровой двойник</span>
+      <span class="line-2">зарядной инфраструктуры</span>
+    </h1>
+    <p class="hero-subtitle">
+      Система оптимального размещения электрозарядных станций в мегаполисе с учётом транспортного спроса, ограничений энергосети и экономики
+    </p>
+    <div class="hero-actions">
+      <a href="#metrics" class="btn btn-primary">Смотреть метрики</a>
+      <a href="#map-section" class="btn btn-ghost">Открыть карту</a>
     </div>
   </div>
 </section>
 
-<section id="kpi-section" class="section">
+<!-- METRICS -->
+<section id="metrics" class="section">
   <div class="section-head">
-    <div class="section-label">01 — Метрики</div>
-    <h2>Ключевые показатели проекта</h2>
-    <p class="section-sub">Агрегированные значения по 20 приоритетным локациям</p>
+    <div class="section-eyebrow">01 — Метрики проекта</div>
+    <h2>Ключевые показатели</h2>
+    <p class="section-desc">Агрегированные значения по 20 приоритетным локациям, отобранным оптимизатором</p>
   </div>
-  <div class="kpi-grid" id="kpiGrid"></div>
+  <div class="glass-grid" id="kpiGrid"></div>
 </section>
 
-<section id="map-section" class="section section-alt">
+<!-- MARKET -->
+<section class="section">
   <div class="section-head">
-    <div class="section-label">02 — Карта</div>
-    <h2>Карта приоритетных локаций</h2>
-    <p class="section-sub">Кликните на точку, чтобы увидеть экономику станции</p>
+    <div class="section-eyebrow">02 — Рынок</div>
+    <h2>Электромобильность в России сегодня</h2>
+    <p class="section-desc">Проверенные отраслевые данные, январь–сентябрь 2026</p>
   </div>
-  <div class="map-controls">
+  <div class="glass-grid glass-grid-4">
+    <div class="glass-card market-card">
+      <div class="market-value">9 889</div>
+      <div class="market-label">публичных ЭЗС в России</div>
+      <div class="market-sub">из них 5 004 быстрых (DC) — 51%</div>
+    </div>
+    <div class="glass-card market-card">
+      <div class="market-value">290+</div>
+      <div class="market-label">станций Росатома</div>
+      <div class="market-sub">в 16 регионах, план — 11 000 к 2030</div>
+    </div>
+    <div class="glass-card market-card">
+      <div class="market-value">+94,7%</div>
+      <div class="market-label">рост продаж EV и гибридов</div>
+      <div class="market-sub">70 180 шт. за 7 месяцев 2026</div>
+    </div>
+    <div class="glass-card market-card">
+      <div class="market-value">26,3%</div>
+      <div class="market-label">доля российских электромобилей</div>
+      <div class="market-sub">год назад было 11,1%</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section id="map-section" class="section">
+  <div class="section-head">
+    <div class="section-eyebrow">03 — Карта</div>
+    <h2>Приоритетные локации</h2>
+    <p class="section-desc">Кликните на точку, чтобы увидеть экономику станции</p>
+  </div>
+  <div class="map-controls glass-card">
     <div class="control-group">
-      <label>Минимальная мощность</label>
+      <label>Мощность</label>
       <select id="powerFilter">
-        <option value="0">Все станции</option>
+        <option value="0">Все</option>
         <option value="50">от 50 кВт</option>
         <option value="150">от 150 кВт</option>
         <option value="350">350 кВт</option>
       </select>
     </div>
     <div class="control-group">
-      <label>Показать топ <span id="topValue">20</span></label>
+      <label>Топ <span id="topValue">20</span></label>
       <input type="range" id="topFilter" min="5" max="20" value="20" />
     </div>
     <div class="legend">
@@ -93,19 +110,20 @@
   <div id="map"></div>
 </section>
 
-<section id="table-section" class="section">
+<!-- TABLE -->
+<section class="section">
   <div class="section-head">
-    <div class="section-label">03 — Локации</div>
-    <h2>Топ приоритетных локаций</h2>
-    <p class="section-sub">Отсортированы по интегральному скору: спрос + энергосеть − расстояние до подстанции</p>
+    <div class="section-eyebrow">04 — Локации</div>
+    <h2>Топ-20 приоритетных локаций</h2>
+    <p class="section-desc">Отсортированы по интегральному скору: спрос + свободная мощность подстанции минус расстояние подключения</p>
   </div>
-  <div class="table-wrap">
+  <div class="glass-card table-card">
     <table id="locTable">
       <thead>
         <tr>
           <th>#</th>
           <th>Мощность</th>
-          <th>Спрос</th>
+          <th>Прогноз спроса</th>
           <th>CAPEX</th>
           <th>NPV</th>
           <th>IRR</th>
@@ -117,54 +135,124 @@
   </div>
 </section>
 
-<section id="about" class="section section-alt">
+<!-- ABOUT -->
+<section class="section">
   <div class="section-head">
-    <div class="section-label">04 — О проекте</div>
+    <div class="section-eyebrow">05 — О проекте</div>
     <h2>Как работает система</h2>
+    <p class="section-desc">Полный цикл: от сбора данных до экономической оценки каждой локации</p>
   </div>
-  <div class="about-grid">
-    <div class="about-card">
-      <div class="about-num">01</div>
+  <div class="glass-grid glass-grid-4">
+    <div class="glass-card step-card">
+      <div class="step-num">01</div>
       <h3>Данные</h3>
-      <p>Собираем слои: транспортный трафик, точки притяжения, население, существующие ЭЗС, мощности трансформаторных подстанций.</p>
+      <p>Транспортный трафик, точки притяжения, население, существующие ЭЗС, мощности подстанций.</p>
     </div>
-    <div class="about-card">
-      <div class="about-num">02</div>
+    <div class="glass-card step-card">
+      <div class="step-num">02</div>
       <h3>Прогноз спроса</h3>
-      <p>ML-модель на XGBoost прогнозирует почасовую загрузку каждой потенциальной станции с учётом сегмента пользователей.</p>
+      <p>ML-модель на XGBoost прогнозирует почасовую загрузку каждой потенциальной станции по сегментам пользователей.</p>
     </div>
-    <div class="about-card">
-      <div class="about-num">03</div>
+    <div class="glass-card step-card">
+      <div class="step-num">03</div>
       <h3>Оптимизация</h3>
-      <p>Многокритериальный оптимизатор: максимум покрытия спроса, минимум CAPEX, учёт свободной мощности подстанции, минимальное расстояние подключения.</p>
+      <p>Многокритериальный отбор: максимум покрытия спроса, минимум CAPEX, учёт свободной мощности, минимальное расстояние подключения.</p>
     </div>
-    <div class="about-card">
-      <div class="about-num">04</div>
+    <div class="glass-card step-card">
+      <div class="step-num">04</div>
       <h3>Экономика</h3>
-      <p>Для каждой локации считаем NPV, IRR, срок окупаемости за 10 лет с дисконтированием 12%.</p>
+      <p>NPV, IRR, срок окупаемости за 10 лет с дисконтированием. Решение устойчиво к сценариям роста рынка до 2030.</p>
     </div>
   </div>
-  <div class="problem-block">
-    <div class="problem-col">
-      <h3>Проблема</h3>
-      <p>Сегодня ЭЗС размещают эмпирически — у торговых центров, вдоль магистралей. Часть станций простаивает, часть перегружена. Инвестиции не окупаются.</p>
+</section>
+
+<!-- TEAM -->
+<section class="section">
+  <div class="section-head">
+    <div class="section-eyebrow">06 — Команда</div>
+    <h2>Состав Азимута</h2>
+    <p class="section-desc">Специалисты Российского университета транспорта, работающие над проектом</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-name">Дмитрий Юдин</div>
+      <div class="team-hover">
+        <div class="team-role">Product Lead</div>
+        <div class="team-desc">Отвечает за видение продукта, коммуникацию с заказчиком и защиту проекта.</div>
+      </div>
     </div>
-    <div class="problem-col">
-      <h3>Наше решение</h3>
-      <p>Цифровой двойник города — единая система, которая отвечает: где, когда и какой мощности строить ЭЗС, чтобы сеть была загружена, а сеть города не перегружена.</p>
+    <div class="team-card">
+      <div class="team-name">Полина Сиротенко</div>
+      <div class="team-hover">
+        <div class="team-role">Data Scientist</div>
+        <div class="team-desc">Разрабатывает ML-модель прогноза спроса на основе XGBoost.</div>
+      </div>
     </div>
+    <div class="team-card">
+      <div class="team-name">Анна Волкова</div>
+      <div class="team-hover">
+        <div class="team-role">GIS Engineer</div>
+        <div class="team-desc">Строит геоинформационные слои, работает с PostGIS и OpenStreetMap.</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-name">Николай Комягин</div>
+      <div class="team-hover">
+        <div class="team-role">Economist</div>
+        <div class="team-desc">Считает NPV, IRR, CAPEX и OPEX каждой локации.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERVIEW -->
+<section class="section">
+  <div class="section-head">
+    <div class="section-eyebrow">07 — Интервью</div>
+    <h2>Экспертное мнение</h2>
+    <p class="section-desc">Позиция представителя Росатома о развитии зарядной инфраструктуры</p>
+  </div>
+  <div class="interview-card glass-card">
+    <div class="interview-photo">
+      <div class="interview-photo-placeholder"></div>
+    </div>
+    <div class="interview-body">
+      <div class="interview-role">Представитель Росатома</div>
+      <div class="interview-name">Здесь будет имя спикера</div>
+      <blockquote class="interview-quote">
+        «Здесь будет ключевая цитата из интервью о развитии зарядной инфраструктуры и роли цифровых решений в этом процессе.»
+      </blockquote>
+      <div class="interview-video-slot">
+        <div class="interview-video-label">Здесь будет видео или расширенный текст интервью</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINALE -->
+<section class="finale">
+  <div class="finale-content">
+    <p class="finale-intro">Команда <span class="team-name-finale">«Азимут»</span> Российского университета транспорта старается специально для</p>
+    <div class="finale-logo">
+      <div class="finale-front">РОСАТОМ</div>
+    </div>
+    <p class="finale-sub">сеть зарядных станций</p>
   </div>
 </section>
 
 <footer class="footer">
   <div class="footer-inner">
-    <div class="footer-col">
-      <div class="footer-title">РОСАТОМ</div>
-      <div class="footer-sub">Сеть зарядных станций</div>
+    <div class="footer-logos">
+      <img src="mintrans.png" alt="Министерство транспорта РФ" class="footer-logo">
+      <div class="footer-logo-text">
+        <div class="footer-logo-title">РОСАТОМ</div>
+        <div class="footer-logo-sub">Сеть зарядных станций</div>
+      </div>
+      <img src="rut.png" alt="Российский университет транспорта" class="footer-logo">
     </div>
-    <div class="footer-col">
-      <div class="footer-meta">Прототип цифрового двойника</div>
-      <div class="footer-meta">© 2026</div>
+    <div class="footer-meta">
+      <div>© 2026 · Прототип цифрового двойника зарядной инфраструктуры</div>
+      <div class="footer-small">Москва · Пилотный сценарий</div>
     </div>
   </div>
 </footer>
