@@ -12,12 +12,21 @@
 </head>
 <body>
 
-<!-- ВЕРХНЯЯ ПОЛОСА -->
+<!-- ЯЗЫКОВАЯ КНОПКА -->
+<div class="lang-switcher">
+  <button id="langBtn" class="lang-btn" aria-label="Switch language">
+    <span class="lang-current">RU</span>
+    <span class="lang-arrow">⇄</span>
+    <span class="lang-other">EN</span>
+  </button>
+</div>
+
+<!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-inner">
-    <span>РОСАТОМ · СЕТЬ ЗАРЯДНЫХ СТАНЦИЙ</span>
+    <span data-ru="РОСАТОМ · СЕТЬ ЗАРЯДНЫХ СТАНЦИЙ" data-en="ROSATOM · CHARGING STATION NETWORK">РОСАТОМ · СЕТЬ ЗАРЯДНЫХ СТАНЦИЙ</span>
     <span class="topbar-sep">|</span>
-    <span>РОССИЙСКИЙ УНИВЕРСИТЕТ ТРАНСПОРТА</span>
+    <span data-ru="РОССИЙСКИЙ УНИВЕРСИТЕТ ТРАНСПОРТА" data-en="RUSSIAN UNIVERSITY OF TRANSPORT">РОССИЙСКИЙ УНИВЕРСИТЕТ ТРАНСПОРТА</span>
   </div>
 </div>
 
@@ -26,108 +35,108 @@
   <div class="hero-bg"></div>
   <div class="hero-inner">
     <h1 class="hero-title">
-      <span class="line-1">Цифровой двойник</span>
-      <span class="line-2">зарядной инфраструктуры</span>
+      <span class="line-1" data-ru="Цифровой двойник" data-en="Digital Twin">Цифровой двойник</span>
+      <span class="line-2" data-ru="зарядной инфраструктуры" data-en="of Charging Infrastructure">зарядной инфраструктуры</span>
     </h1>
-    <p class="hero-subtitle">
+    <p class="hero-subtitle" data-ru="Система оптимального размещения электрозарядных станций в мегаполисе с учётом транспортного спроса, ограничений энергосети и экономики" data-en="A system for optimal placement of EV charging stations in a metropolis, considering transport demand, power grid constraints and economics">
       Система оптимального размещения электрозарядных станций в мегаполисе с учётом транспортного спроса, ограничений энергосети и экономики
     </p>
     <div class="hero-actions">
-      <a href="#metrics" class="btn btn-primary">Смотреть метрики</a>
-      <a href="#map-section" class="btn btn-ghost">Открыть карту</a>
+      <a href="#metrics" class="btn btn-primary" data-ru="Смотреть метрики" data-en="View Metrics">Смотреть метрики</a>
+      <a href="#map-section" class="btn btn-ghost" data-ru="Открыть карту" data-en="Open Map">Открыть карту</a>
     </div>
   </div>
 </section>
 
 <!-- METRICS -->
-<section id="metrics" class="section">
+<section id="metrics" class="section section-metrics">
   <div class="section-head">
-    <div class="section-eyebrow">01 — Метрики проекта</div>
-    <h2>Ключевые показатели</h2>
-    <p class="section-desc">Агрегированные значения по 20 приоритетным локациям, отобранным оптимизатором</p>
+    <div class="section-eyebrow" data-ru="01 — Метрики проекта" data-en="01 — Project Metrics">01 — Метрики проекта</div>
+    <h2 data-ru="Ключевые показатели" data-en="Key Indicators">Ключевые показатели</h2>
+    <p class="section-desc" data-ru="Агрегированные значения по 20 приоритетным локациям, отобранным оптимизатором" data-en="Aggregated values across 20 priority locations selected by the optimizer">Агрегированные значения по 20 приоритетным локациям, отобранным оптимизатором</p>
   </div>
   <div class="glass-grid" id="kpiGrid"></div>
 </section>
 
 <!-- MARKET -->
-<section class="section">
+<section class="section section-market">
   <div class="section-head">
-    <div class="section-eyebrow">02 — Рынок</div>
-    <h2>Электромобильность в России сегодня</h2>
-    <p class="section-desc">Проверенные отраслевые данные, январь–сентябрь 2026</p>
+    <div class="section-eyebrow" data-ru="02 — Рынок" data-en="02 — Market">02 — Рынок</div>
+    <h2 data-ru="Электромобильность в России сегодня" data-en="Electric Mobility in Russia Today">Электромобильность в России сегодня</h2>
+    <p class="section-desc" data-ru="Проверенные отраслевые данные, январь–сентябрь 2026" data-en="Verified industry data, January–September 2026">Проверенные отраслевые данные, январь–сентябрь 2026</p>
   </div>
   <div class="glass-grid glass-grid-4">
     <div class="glass-card market-card">
       <div class="market-value">9 889</div>
-      <div class="market-label">публичных ЭЗС в России</div>
-      <div class="market-sub">из них 5 004 быстрых (DC) — 51%</div>
+      <div class="market-label" data-ru="публичных ЭЗС в России" data-en="public charging stations in Russia">публичных ЭЗС в России</div>
+      <div class="market-sub" data-ru="из них 5 004 быстрых (DC) — 51%" data-en="of which 5,004 are fast (DC) — 51%">из них 5 004 быстрых (DC) — 51%</div>
     </div>
     <div class="glass-card market-card">
       <div class="market-value">290+</div>
-      <div class="market-label">станций Росатома</div>
-      <div class="market-sub">в 16 регионах, план — 11 000 к 2030</div>
+      <div class="market-label" data-ru="станций Росатома" data-en="Rosatom charging stations">станций Росатома</div>
+      <div class="market-sub" data-ru="в 16 регионах, план — 11 000 к 2030" data-en="across 16 regions, target — 11,000 by 2030">в 16 регионах, план — 11 000 к 2030</div>
     </div>
     <div class="glass-card market-card">
       <div class="market-value">+94,7%</div>
-      <div class="market-label">рост продаж EV и гибридов</div>
-      <div class="market-sub">70 180 шт. за 7 месяцев 2026</div>
+      <div class="market-label" data-ru="рост продаж EV и гибридов" data-en="growth in EV and hybrid sales">рост продаж EV и гибридов</div>
+      <div class="market-sub" data-ru="70 180 шт. за 7 месяцев 2026" data-en="70,180 units in 7 months of 2026">70 180 шт. за 7 месяцев 2026</div>
     </div>
     <div class="glass-card market-card">
       <div class="market-value">26,3%</div>
-      <div class="market-label">доля российских электромобилей</div>
-      <div class="market-sub">год назад было 11,1%</div>
+      <div class="market-label" data-ru="доля российских электромобилей" data-en="share of Russian-made electric vehicles">доля российских электромобилей</div>
+      <div class="market-sub" data-ru="год назад было 11,1%" data-en="was 11.1% a year ago">год назад было 11,1%</div>
     </div>
   </div>
 </section>
 
 <!-- MAP -->
-<section id="map-section" class="section">
+<section id="map-section" class="section section-map">
   <div class="section-head">
-    <div class="section-eyebrow">03 — Карта</div>
-    <h2>Приоритетные локации</h2>
-    <p class="section-desc">Кликните на точку, чтобы увидеть экономику станции</p>
+    <div class="section-eyebrow" data-ru="03 — Карта" data-en="03 — Map">03 — Карта</div>
+    <h2 data-ru="Приоритетные локации" data-en="Priority Locations">Приоритетные локации</h2>
+    <p class="section-desc" data-ru="Кликните на точку, чтобы увидеть экономику станции" data-en="Click a point to see the station's economics">Кликните на точку, чтобы увидеть экономику станции</p>
   </div>
   <div class="map-controls glass-card">
     <div class="control-group">
-      <label>Мощность</label>
+      <label data-ru="Мощность" data-en="Power">Мощность</label>
       <select id="powerFilter">
-        <option value="0">Все</option>
-        <option value="50">от 50 кВт</option>
-        <option value="150">от 150 кВт</option>
-        <option value="350">350 кВт</option>
+        <option value="0" data-ru="Все" data-en="All">Все</option>
+        <option value="50" data-ru="от 50 кВт" data-en="from 50 kW">от 50 кВт</option>
+        <option value="150" data-ru="от 150 кВт" data-en="from 150 kW">от 150 кВт</option>
+        <option value="350" data-ru="350 кВт" data-en="350 kW">350 кВт</option>
       </select>
     </div>
     <div class="control-group">
-      <label>Топ <span id="topValue">20</span></label>
+      <label><span data-ru="Топ" data-en="Top">Топ</span> <span id="topValue">20</span></label>
       <input type="range" id="topFilter" min="5" max="20" value="20" />
     </div>
     <div class="legend">
-      <div class="legend-item"><span class="dot green"></span>50 кВт</div>
-      <div class="legend-item"><span class="dot yellow"></span>150 кВт</div>
-      <div class="legend-item"><span class="dot red"></span>350 кВт</div>
+      <div class="legend-item"><span class="dot green"></span><span data-ru="50 кВт" data-en="50 kW">50 кВт</span></div>
+      <div class="legend-item"><span class="dot yellow"></span><span data-ru="150 кВт" data-en="150 kW">150 кВт</span></div>
+      <div class="legend-item"><span class="dot red"></span><span data-ru="350 кВт" data-en="350 kW">350 кВт</span></div>
     </div>
   </div>
   <div id="map"></div>
 </section>
 
 <!-- TABLE -->
-<section class="section">
+<section class="section section-locations">
   <div class="section-head">
-    <div class="section-eyebrow">04 — Локации</div>
-    <h2>Топ-20 приоритетных локаций</h2>
-    <p class="section-desc">Отсортированы по интегральному скору: спрос + свободная мощность подстанции минус расстояние подключения</p>
+    <div class="section-eyebrow" data-ru="04 — Локации" data-en="04 — Locations">04 — Локации</div>
+    <h2 data-ru="Топ-20 приоритетных локаций" data-en="Top-20 Priority Locations">Топ-20 приоритетных локаций</h2>
+    <p class="section-desc" data-ru="Отсортированы по интегральному скору: спрос + свободная мощность подстанции минус расстояние подключения" data-en="Sorted by integrated score: demand + free substation capacity minus connection distance">Отсортированы по интегральному скору: спрос + свободная мощность подстанции минус расстояние подключения</p>
   </div>
   <div class="glass-card table-card">
     <table id="locTable">
       <thead>
         <tr>
           <th>#</th>
-          <th>Мощность</th>
-          <th>Прогноз спроса</th>
+          <th data-ru="Мощность" data-en="Power">Мощность</th>
+          <th data-ru="Прогноз спроса" data-en="Demand Forecast">Прогноз спроса</th>
           <th>CAPEX</th>
           <th>NPV</th>
           <th>IRR</th>
-          <th>Окупаемость</th>
+          <th data-ru="Окупаемость" data-en="Payback">Окупаемость</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -136,94 +145,94 @@
 </section>
 
 <!-- ABOUT -->
-<section class="section">
+<section class="section section-about">
   <div class="section-head">
-    <div class="section-eyebrow">05 — О проекте</div>
-    <h2>Как работает система</h2>
-    <p class="section-desc">Полный цикл: от сбора данных до экономической оценки каждой локации</p>
+    <div class="section-eyebrow" data-ru="05 — О проекте" data-en="05 — About">05 — О проекте</div>
+    <h2 data-ru="Как работает система" data-en="How the System Works">Как работает система</h2>
+    <p class="section-desc" data-ru="Полный цикл: от сбора данных до экономической оценки каждой локации" data-en="Full cycle: from data collection to economic evaluation of each location">Полный цикл: от сбора данных до экономической оценки каждой локации</p>
   </div>
   <div class="glass-grid glass-grid-4">
     <div class="glass-card step-card">
       <div class="step-num">01</div>
-      <h3>Данные</h3>
-      <p>Транспортный трафик, точки притяжения, население, существующие ЭЗС, мощности подстанций.</p>
+      <h3 data-ru="Данные" data-en="Data">Данные</h3>
+      <p data-ru="Транспортный трафик, точки притяжения, население, существующие ЭЗС, мощности подстанций." data-en="Traffic flows, points of interest, population, existing charging stations, substation capacities.">Транспортный трафик, точки притяжения, население, существующие ЭЗС, мощности подстанций.</p>
     </div>
     <div class="glass-card step-card">
       <div class="step-num">02</div>
-      <h3>Прогноз спроса</h3>
-      <p>ML-модель на XGBoost прогнозирует почасовую загрузку каждой потенциальной станции по сегментам пользователей.</p>
+      <h3 data-ru="Прогноз спроса" data-en="Demand Forecast">Прогноз спроса</h3>
+      <p data-ru="ML-модель на XGBoost прогнозирует почасовую загрузку каждой потенциальной станции по сегментам пользователей." data-en="An XGBoost ML model forecasts hourly utilization of each potential station by user segment.">ML-модель на XGBoost прогнозирует почасовую загрузку каждой потенциальной станции по сегментам пользователей.</p>
     </div>
     <div class="glass-card step-card">
       <div class="step-num">03</div>
-      <h3>Оптимизация</h3>
-      <p>Многокритериальный отбор: максимум покрытия спроса, минимум CAPEX, учёт свободной мощности, минимальное расстояние подключения.</p>
+      <h3 data-ru="Оптимизация" data-en="Optimization">Оптимизация</h3>
+      <p data-ru="Многокритериальный отбор: максимум покрытия спроса, минимум CAPEX, учёт свободной мощности, минимальное расстояние подключения." data-en="Multi-criteria selection: maximize demand coverage, minimize CAPEX, account for free capacity, minimize connection distance.">Многокритериальный отбор: максимум покрытия спроса, минимум CAPEX, учёт свободной мощности, минимальное расстояние подключения.</p>
     </div>
     <div class="glass-card step-card">
       <div class="step-num">04</div>
-      <h3>Экономика</h3>
-      <p>NPV, IRR, срок окупаемости за 10 лет с дисконтированием. Решение устойчиво к сценариям роста рынка до 2030.</p>
+      <h3 data-ru="Экономика" data-en="Economics">Экономика</h3>
+      <p data-ru="NPV, IRR, срок окупаемости за 10 лет с дисконтированием. Решение устойчиво к сценариям роста рынка до 2030." data-en="NPV, IRR, payback period over 10 years with discounting. The solution is robust to market growth scenarios through 2030.">NPV, IRR, срок окупаемости за 10 лет с дисконтированием. Решение устойчиво к сценариям роста рынка до 2030.</p>
     </div>
   </div>
 </section>
 
 <!-- TEAM -->
-<section class="section">
+<section class="section section-team">
   <div class="section-head">
-    <div class="section-eyebrow">06 — Команда</div>
-    <h2>Состав Азимута</h2>
-    <p class="section-desc">Специалисты Российского университета транспорта, работающие над проектом</p>
+    <div class="section-eyebrow" data-ru="06 — Команда" data-en="06 — Team">06 — Команда</div>
+    <h2 data-ru="Состав Азимута" data-en="Azimuth Team">Состав Азимута</h2>
+    <p class="section-desc" data-ru="Специалисты Российского университета транспорта, работающие над проектом" data-en="Specialists from the Russian University of Transport working on the project">Специалисты Российского университета транспорта, работающие над проектом</p>
   </div>
   <div class="team-grid">
     <div class="team-card">
       <div class="team-name">Дмитрий Юдин</div>
       <div class="team-hover">
         <div class="team-role">Product Lead</div>
-        <div class="team-desc">Отвечает за видение продукта, коммуникацию с заказчиком и защиту проекта.</div>
+        <div class="team-desc" data-ru="Отвечает за видение продукта, коммуникацию с заказчиком и защиту проекта." data-en="Responsible for product vision, client communication and project defense.">Отвечает за видение продукта, коммуникацию с заказчиком и защиту проекта.</div>
       </div>
     </div>
     <div class="team-card">
       <div class="team-name">Полина Сиротенко</div>
       <div class="team-hover">
         <div class="team-role">Data Scientist</div>
-        <div class="team-desc">Разрабатывает ML-модель прогноза спроса на основе XGBoost.</div>
+        <div class="team-desc" data-ru="Разрабатывает ML-модель прогноза спроса на основе XGBoost." data-en="Develops the XGBoost-based demand forecasting ML model.">Разрабатывает ML-модель прогноза спроса на основе XGBoost.</div>
       </div>
     </div>
     <div class="team-card">
       <div class="team-name">Анна Волкова</div>
       <div class="team-hover">
         <div class="team-role">GIS Engineer</div>
-        <div class="team-desc">Строит геоинформационные слои, работает с PostGIS и OpenStreetMap.</div>
+        <div class="team-desc" data-ru="Строит геоинформационные слои, работает с PostGIS и OpenStreetMap." data-en="Builds geoinformation layers, works with PostGIS and OpenStreetMap.">Строит геоинформационные слои, работает с PostGIS и OpenStreetMap.</div>
       </div>
     </div>
     <div class="team-card">
       <div class="team-name">Николай Комягин</div>
       <div class="team-hover">
         <div class="team-role">Economist</div>
-        <div class="team-desc">Считает NPV, IRR, CAPEX и OPEX каждой локации.</div>
+        <div class="team-desc" data-ru="Считает NPV, IRR, CAPEX и OPEX каждой локации." data-en="Calculates NPV, IRR, CAPEX and OPEX for each location.">Считает NPV, IRR, CAPEX и OPEX каждой локации.</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- INTERVIEW -->
-<section class="section">
+<section class="section section-interview">
   <div class="section-head">
-    <div class="section-eyebrow">07 — Интервью</div>
-    <h2>Экспертное мнение</h2>
-    <p class="section-desc">Позиция представителя Росатома о развитии зарядной инфраструктуры</p>
+    <div class="section-eyebrow" data-ru="07 — Интервью" data-en="07 — Interview">07 — Интервью</div>
+    <h2 data-ru="Экспертное мнение" data-en="Expert Opinion">Экспертное мнение</h2>
+    <p class="section-desc" data-ru="Позиция представителя Росатома о развитии зарядной инфраструктуры" data-en="Rosatom representative's view on charging infrastructure development">Позиция представителя Росатома о развитии зарядной инфраструктуры</p>
   </div>
   <div class="interview-card glass-card">
     <div class="interview-photo">
       <div class="interview-photo-placeholder"></div>
     </div>
     <div class="interview-body">
-      <div class="interview-role">Представитель Росатома</div>
-      <div class="interview-name">Здесь будет имя спикера</div>
-      <blockquote class="interview-quote">
+      <div class="interview-role" data-ru="Представитель Росатома" data-en="Rosatom Representative">Представитель Росатома</div>
+      <div class="interview-name" data-ru="Здесь будет имя спикера" data-en="Speaker name will be here">Здесь будет имя спикера</div>
+      <blockquote class="interview-quote" data-ru="«Здесь будет ключевая цитата из интервью о развитии зарядной инфраструктуры и роли цифровых решений в этом процессе.»" data-en="&quot;Here will be a key quote from the interview about charging infrastructure development and the role of digital solutions.&quot;">
         «Здесь будет ключевая цитата из интервью о развитии зарядной инфраструктуры и роли цифровых решений в этом процессе.»
       </blockquote>
       <div class="interview-video-slot">
-        <div class="interview-video-label">Здесь будет видео или расширенный текст интервью</div>
+        <div class="interview-video-label" data-ru="Здесь будет видео или расширенный текст интервью" data-en="Video or extended interview text will be placed here">Здесь будет видео или расширенный текст интервью</div>
       </div>
     </div>
   </div>
@@ -232,11 +241,13 @@
 <!-- FINALE -->
 <section class="finale">
   <div class="finale-content">
-    <p class="finale-intro">Команда <span class="team-name-finale">«Азимут»</span> Российского университета транспорта старается специально для</p>
+    <p class="finale-intro">
+      <span data-ru="Команда «Азимут» Российского университета транспорта старается специально для" data-en="The Azimuth team of the Russian University of Transport is proud to present to">Команда «Азимут» Российского университета транспорта старается специально для</span>
+    </p>
     <div class="finale-logo">
       <div class="finale-front">РОСАТОМ</div>
     </div>
-    <p class="finale-sub">сеть зарядных станций</p>
+    <p class="finale-sub" data-ru="сеть зарядных станций" data-en="charging station network">сеть зарядных станций</p>
   </div>
 </section>
 
@@ -246,13 +257,13 @@
       <img src="mintrans.png" alt="Министерство транспорта РФ" class="footer-logo">
       <div class="footer-logo-text">
         <div class="footer-logo-title">РОСАТОМ</div>
-        <div class="footer-logo-sub">Сеть зарядных станций</div>
+        <div class="footer-logo-sub" data-ru="Сеть зарядных станций" data-en="Charging Station Network">Сеть зарядных станций</div>
       </div>
       <img src="rut.png" alt="Российский университет транспорта" class="footer-logo">
     </div>
     <div class="footer-meta">
-      <div>© 2026 · Прототип цифрового двойника зарядной инфраструктуры</div>
-      <div class="footer-small">Москва · Пилотный сценарий</div>
+      <div data-ru="© 2026 · Прототип цифрового двойника зарядной инфраструктуры" data-en="© 2026 · Digital Twin of Charging Infrastructure Prototype">© 2026 · Прототип цифрового двойника зарядной инфраструктуры</div>
+      <div class="footer-small" data-ru="Москва · Пилотный сценарий" data-en="Moscow · Pilot Scenario">Москва · Пилотный сценарий</div>
     </div>
   </div>
 </footer>
