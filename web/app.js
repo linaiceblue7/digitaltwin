@@ -1,3 +1,48 @@
+// ==============================================
+// ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА RU / EN
+// ==============================================
+document.addEventListener('DOMContentLoaded', function () {
+  const langBtn = document.getElementById('langBtn');
+  if (!langBtn) return;
+
+  const savedLang = localStorage.getItem('site-lang') || 'ru';
+
+  function applyLanguage(lang) {
+    document.querySelectorAll('[data-ru][data-en]').forEach(el => {
+      const text = lang === 'ru' ? el.dataset.ru : el.dataset.en;
+      if (text) el.textContent = text;
+    });
+
+    if (lang === 'en') {
+      document.body.classList.add('lang-en');
+      document.documentElement.lang = 'en';
+    } else {
+      document.body.classList.remove('lang-en');
+      document.documentElement.lang = 'ru';
+    }
+  }
+
+  function refreshDynamicContent() {
+    if (typeof allData !== 'undefined' && allData.length > 0) {
+      initKPI(allData);
+      initTable(allData);
+    }
+  }
+
+  applyLanguage(savedLang);
+
+  langBtn.addEventListener('click', () => {
+    const isEn = !document.body.classList.contains('lang-en');
+    const newLang = isEn ? 'en' : 'ru';
+    localStorage.setItem('site-lang', newLang);
+    applyLanguage(newLang);
+    refreshDynamicContent();
+  });
+});
+
+// ==============================================
+// ЗАГРУЗКА ДАННЫХ
+// ==============================================
 let map, markers = [], allData = [];
 
 fetch('data.json')
@@ -11,6 +56,9 @@ fetch('data.json')
   })
   .catch(err => console.error('Ошибка загрузки data.json:', err));
 
+// ==============================================
+// KPI
+// ==============================================
 function initKPI(data) {
   const avgNpv = data.reduce((s, d) => s + d.npv, 0) / data.length;
   const avgIrr = data.reduce((s, d) => s + d.irr, 0) / data.length;
@@ -18,7 +66,16 @@ function initKPI(data) {
   const totalCapex = data.reduce((s, d) => s + d.capex, 0);
   const avgPower = data.reduce((s, d) => s + d.power_kw, 0) / data.length;
 
-  const kpis = [
+  const isEn = document.body.classList.contains('lang-en');
+
+  const kpis = isEn ? [
+    { num: '01', label: 'Priority Locations', value: data.length, suffix: '', sub: 'selected by the optimizer', decimals: 0 },
+    { num: '02', label: 'Average Power', value: avgPower, suffix: ' kW', sub: 'per station', decimals: 0 },
+    { num: '03', label: 'Average NPV', value: avgNpv / 1e6, suffix: ' M ₽', sub: 'over 10 years, 12% discount', decimals: 1 },
+    { num: '04', label: 'Average IRR', value: avgIrr * 100, suffix: '%', sub: 'internal rate of return', decimals: 0 },
+    { num: '05', label: 'Payback Period', value: avgPayback, suffix: ' yrs', sub: 'average return period', decimals: 1 },
+    { num: '06', label: 'Total CAPEX', value: totalCapex / 1e6, suffix: ' M ₽', sub: 'investment in top-20', decimals: 0 }
+  ] : [
     { num: '01', label: 'Приоритетных локаций', value: data.length, suffix: '', sub: 'по результатам оптимизации', decimals: 0 },
     { num: '02', label: 'Средняя мощность', value: avgPower, suffix: ' кВт', sub: 'на одну станцию', decimals: 0 },
     { num: '03', label: 'Средний NPV', value: avgNpv / 1e6, suffix: ' млн ₽', sub: 'за 10 лет, дисконт 12%', decimals: 1 },
@@ -56,10 +113,12 @@ function animateCounter(el, target, suffix, decimals) {
   requestAnimationFrame(tick);
 }
 
+// ==============================================
+// КАРТА
+// ==============================================
 function initMap(data) {
   map = L.map('map', { zoomControl: true, attributionControl: false }).setView([55.7558, 37.6173], 10);
 
-  // Светлые тайлы OpenStreetMap без ключа и водяных знаков
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19
   }).addTo(map);
@@ -70,41 +129,73 @@ function initMap(data) {
 function renderMarkers(data) {
   markers.forEach(m => map.removeLayer(m));
   markers = [];
+
+  const isEn = document.body.classList.contains('lang-en');
+  const kW = isEn ? 'kW' : 'кВт';
+  const kWh = isEn ? 'kWh' : 'кВт·ч';
+  const mln = isEn ? 'M ₽' : 'млн ₽';
+  const yrs = isEn ? 'yrs' : 'лет';
+  const power = isEn ? 'Power' : 'Мощность';
+  const demand = isEn ? 'Demand' : 'Спрос';
+  const capexLabel = 'CAPEX';
+  const npvLabel = 'NPV';
+  const irrLabel = 'IRR';
+  const paybackLabel = isEn ? 'Payback' : 'Окупаемость';
+  const location = isEn ? 'Location' : 'Локация';
+
   data.forEach(d => {
     const color = d.power_kw >= 350 ? '#EF4444' : d.power_kw >= 150 ? '#F59E0B' : '#10B981';
     const radius = d.power_kw >= 350 ? 11 : d.power_kw >= 150 ? 9 : 7;
+
     const marker = L.circleMarker([d.latitude, d.longitude], {
-      radius, fillColor: color, color: '#fff', weight: 2.5, opacity: 1, fillOpacity: 0.9
+      radius: radius, fillColor: color, color: '#fff',
+      weight: 2.5, opacity: 1, fillOpacity: 0.9
     }).addTo(map);
+
     marker.bindPopup(`
-      <div class="popup-title">Локация №${d.priority}</div>
-      <div class="popup-row"><span>Мощность:</span><span>${d.power_kw} кВт</span></div>
-      <div class="popup-row"><span>Прогноз спроса:</span><span>${d.predicted_demand_kwh} кВт·ч</span></div>
-      <div class="popup-row"><span>CAPEX:</span><span>${(d.capex / 1e6).toFixed(1)} млн ₽</span></div>
-      <div class="popup-row"><span>NPV:</span><span>${(d.npv / 1e6).toFixed(1)} млн ₽</span></div>
-      <div class="popup-row"><span>IRR:</span><span>${(d.irr * 100).toFixed(0)}%</span></div>
-      <div class="popup-row"><span>Окупаемость:</span><span>${d.payback_years} лет</span></div>
+      <div class="popup-title">${location} №${d.priority}</div>
+      <div class="popup-row"><span>${power}:</span><span>${d.power_kw} ${kW}</span></div>
+      <div class="popup-row"><span>${demand}:</span><span>${d.predicted_demand_kwh} ${kWh}</span></div>
+      <div class="popup-row"><span>${capexLabel}:</span><span>${(d.capex / 1e6).toFixed(1)} ${mln}</span></div>
+      <div class="popup-row"><span>${npvLabel}:</span><span>${(d.npv / 1e6).toFixed(1)} ${mln}</span></div>
+      <div class="popup-row"><span>${irrLabel}:</span><span>${(d.irr * 100).toFixed(0)}%</span></div>
+      <div class="popup-row"><span>${paybackLabel}:</span><span>${d.payback_years} ${yrs}</span></div>
     `);
+
     markers.push(marker);
   });
 }
 
+// ==============================================
+// ТАБЛИЦА
+// ==============================================
 function initTable(data) {
+  const isEn = document.body.classList.contains('lang-en');
+  const kW = isEn ? 'kW' : 'кВт';
+  const kWh = isEn ? 'kWh' : 'кВт·ч';
+  const mln = isEn ? 'M ₽' : 'млн ₽';
+  const yrs = isEn ? 'yrs' : 'лет';
+
   document.querySelector('#locTable tbody').innerHTML = data.map(d => {
     const npvClass = d.npv > 30000000 ? 'good' : d.npv > 15000000 ? '' : 'warn';
     const payClass = d.payback_years <= 3 ? 'good' : d.payback_years <= 5 ? '' : 'warn';
-    return `<tr>
-      <td class="priority">${d.priority}</td>
-      <td>${d.power_kw} кВт</td>
-      <td>${d.predicted_demand_kwh} кВт·ч</td>
-      <td>${(d.capex / 1e6).toFixed(1)} млн ₽</td>
-      <td class="${npvClass}">${(d.npv / 1e6).toFixed(1)} млн ₽</td>
-      <td>${(d.irr * 100).toFixed(0)}%</td>
-      <td class="${payClass}">${d.payback_years} лет</td>
-    </tr>`;
+    return `
+      <tr>
+        <td class="priority">${d.priority}</td>
+        <td>${d.power_kw} ${kW}</td>
+        <td>${d.predicted_demand_kwh} ${kWh}</td>
+        <td>${(d.capex / 1e6).toFixed(1)} ${mln}</td>
+        <td class="${npvClass}">${(d.npv / 1e6).toFixed(1)} ${mln}</td>
+        <td>${(d.irr * 100).toFixed(0)}%</td>
+        <td class="${payClass}">${d.payback_years} ${yrs}</td>
+      </tr>
+    `;
   }).join('');
 }
 
+// ==============================================
+// ФИЛЬТРЫ
+// ==============================================
 function initControls() {
   document.getElementById('powerFilter').addEventListener('change', applyFilters);
   document.getElementById('topFilter').addEventListener('input', e => {
