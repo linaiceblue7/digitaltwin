@@ -12,7 +12,6 @@
 </head>
 <body>
 
-<!-- ЯЗЫКОВАЯ КНОПКА -->
 <div class="lang-switcher">
   <button id="langBtn" class="lang-btn" aria-label="Switch language">
     <span class="lang-current">RU</span>
@@ -21,7 +20,6 @@
   </button>
 </div>
 
-<!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-inner">
     <span data-ru="РОСАТОМ · СЕТЬ ЗАРЯДНЫХ СТАНЦИЙ" data-en="ROSATOM · CHARGING STATION NETWORK">РОСАТОМ · СЕТЬ ЗАРЯДНЫХ СТАНЦИЙ</span>
@@ -30,7 +28,6 @@
   </div>
 </div>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-inner">
@@ -39,8 +36,12 @@
       <span class="line-2" data-ru="зарядной инфраструктуры" data-en="of Charging Infrastructure">зарядной инфраструктуры</span>
     </h1>
     <p class="hero-subtitle" data-ru="Система оптимального размещения электрозарядных станций в мегаполисе с учётом транспортного спроса, ограничений энергосети и экономики" data-en="A system for optimal placement of EV charging stations in a metropolis, considering transport demand, power grid constraints and economics">
-      Система оптимального размещения электрозарядных станций в мегаполисе с учётом транспортного спроса, ограничений энергосети и экономики
-    </p>
+  Система оптимального размещения электрозарядных станций в мегаполисе с учётом транспортного спроса, ограничений энергосети и экономики
+</p>
+<div class="hero-problem">
+  <span class="hero-problem-label" data-ru="Проблема" data-en="Problem">Проблема</span>
+  <p class="hero-problem-text" data-ru="Сегодня 40% зарядных станций простаивают, а 30% перегружены в часы пик. Инвестиции окупаются 7–10 лет вместо 3. Причина — станции размещают эмпирически, без анализа спроса и мощности городских подстанций." data-en="Today 40% of charging stations are idle, while 30% are overloaded during peak hours. Investments pay back in 7–10 years instead of 3. The reason — stations are placed empirically, without analyzing demand or city substation capacity.">Сегодня 40% зарядных станций простаивают, а 30% перегружены в часы пик. Инвестиции окупаются 7–10 лет вместо 3. Причина — станции размещают эмпирически, без анализа спроса и мощности городских подстанций.</p>
+</div>
     <div class="hero-actions">
       <a href="#metrics" class="btn btn-primary" data-ru="Смотреть метрики" data-en="View Metrics">Смотреть метрики</a>
       <a href="#map-section" class="btn btn-ghost" data-ru="Открыть карту" data-en="Open Map">Открыть карту</a>
@@ -48,7 +49,38 @@
   </div>
 </section>
 
-<!-- METRICS -->
+<section class="section section-problem">
+  <div class="section-head">
+    <div class="section-eyebrow" data-ru="Проблема и решение" data-en="Problem & Solution">Проблема и решение</div>
+    <h2 data-ru="Почему существующий подход не работает" data-en="Why the Current Approach Fails">Почему существующий подход не работает</h2>
+    <p class="section-desc" data-ru="Сегодня зарядные станции размещают эмпирически — у торговых центров и вдоль магистралей. Это приводит к системным ошибкам." data-en="Today charging stations are placed empirically — near shopping malls and along highways. This leads to systemic errors.">Сегодня зарядные станции размещают эмпирически — у торговых центров и вдоль магистралей. Это приводит к системным ошибкам.</p>
+  </div>
+  <div class="problem-grid">
+    <div class="glass-card problem-card">
+      <div class="problem-icon">✕</div>
+      <h3 data-ru="Что не так сегодня" data-en="What's Wrong Today">Что не так сегодня</h3>
+      <ul>
+        <li data-ru="Станции ставят там, где «кажется удобно», без анализа спроса" data-en="Stations are placed where it 'seems convenient' without demand analysis">Станции ставят там, где «кажется удобно», без анализа спроса</li>
+        <li data-ru="Часть локаций простаивает, часть перегружена — очереди в часы пик" data-en="Some locations are idle, others overloaded — queues at peak hours">Часть локаций простаивает, часть перегружена — очереди в часы пик</li>
+        <li data-ru="Мощность подстанций не учитывается — половина точек технически непригодна" data-en="Substation capacity is not considered — half the points are technically unsuitable">Мощность подстанций не учитывается — половина точек технически непригодна</li>
+        <li data-ru="Инвестиции окупаются 7–10 лет вместо 3–4" data-en="Investments pay back in 7–10 years instead of 3–4">Инвестиции окупаются 7–10 лет вместо 3–4</li>
+        <li data-ru="Город теряет деньги и доверие водителей" data-en="The city loses money and driver trust">Город теряет деньги и доверие водителей</li>
+      </ul>
+    </div>
+    <div class="glass-card solution-card">
+      <div class="problem-icon good">✓</div>
+      <h3 data-ru="Что делаем мы" data-en="What We Do">Что делаем мы</h3>
+      <ul>
+        <li data-ru="Цифровой двойник города: слои транспорта, спроса, энергосети, POI" data-en="City digital twin: layers of transport, demand, power grid, POI">Цифровой двойник города: слои транспорта, спроса, энергосети, POI</li>
+        <li data-ru="ML-прогноз почасовой загрузки каждой потенциальной локации" data-en="ML forecast of hourly utilization for each potential location">ML-прогноз почасовой загрузки каждой потенциальной локации</li>
+        <li data-ru="Многокритериальный оптимизатор: спрос + мощность + CAPEX + окупаемость" data-en="Multi-criteria optimizer: demand + power + CAPEX + payback">Многокритериальный оптимизатор: спрос + мощность + CAPEX + окупаемость</li>
+        <li data-ru="Экономическая оценка каждой точки: NPV, IRR, срок возврата" data-en="Economic evaluation of each point: NPV, IRR, payback">Экономическая оценка каждой точки: NPV, IRR, срок возврата</li>
+        <li data-ru="Решение устойчиво к сценариям роста рынка до 2030 года" data-en="Solution is robust to market growth scenarios through 2030">Решение устойчиво к сценариям роста рынка до 2030 года</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <section id="metrics" class="section section-metrics">
   <div class="section-head">
     <div class="section-eyebrow" data-ru="01 — Метрики проекта" data-en="01 — Project Metrics">01 — Метрики проекта</div>
@@ -58,7 +90,6 @@
   <div class="glass-grid" id="kpiGrid"></div>
 </section>
 
-<!-- MARKET -->
 <section class="section section-market">
   <div class="section-head">
     <div class="section-eyebrow" data-ru="02 — Рынок" data-en="02 — Market">02 — Рынок</div>
@@ -89,7 +120,6 @@
   </div>
 </section>
 
-<!-- MAP -->
 <section id="map-section" class="section section-map">
   <div class="section-head">
     <div class="section-eyebrow" data-ru="03 — Карта" data-en="03 — Map">03 — Карта</div>
@@ -119,8 +149,7 @@
   <div id="map"></div>
 </section>
 
-<!-- TABLE -->
-<section class="section section-locations">
+<section id="table-section" class="section section-locations">
   <div class="section-head">
     <div class="section-eyebrow" data-ru="04 — Локации" data-en="04 — Locations">04 — Локации</div>
     <h2 data-ru="Топ-20 приоритетных локаций" data-en="Top-20 Priority Locations">Топ-20 приоритетных локаций</h2>
@@ -143,38 +172,7 @@
     </table>
   </div>
 </section>
-<!-- VALUE FOR ROSATOM -->
-<section class="section section-value">
-  <div class="section-head">
-    <div class="section-eyebrow" data-ru="Что мы даём Росатому" data-en="Value for Rosatom">Что мы даём Росатому</div>
-    <h2 data-ru="Как цифровой двойник работает в вашей экосистеме" data-en="How the Digital Twin Works in Your Ecosystem">Как цифровой двойник работает в вашей экосистеме</h2>
-    <p class="section-desc" data-ru="Четыре конкретные точки интеграции с существующей инфраструктурой Росатома" data-en="Four concrete integration points with Rosatom's existing infrastructure">Четыре конкретные точки интеграции с существующей инфраструктурой Росатома</p>
-  </div>
-  <div class="value-grid">
-    <div class="glass-card value-card">
-      <div class="value-num">01</div>
-      <h3 data-ru="Существующая сеть 290+ станций" data-en="Existing Network of 290+ Stations">Существующая сеть 290+ станций</h3>
-      <p data-ru="Оптимизатор работает на исторических данных загрузки ваших станций в Москве, Екатеринбурге, Сочи. Модель настраивается под реальный профиль спроса каждого города." data-en="The optimizer works on historical load data from your stations in Moscow, Yekaterinburg, Sochi. The model adapts to the real demand profile of each city.">Оптимизатор работает на исторических данных загрузки ваших станций в Москве, Екатеринбурге, Сочи. Модель настраивается под реальный профиль спроса каждого города.</p>
-    </div>
-    <div class="glass-card value-card">
-      <div class="value-num">02</div>
-      <h3 data-ru="Оборудование Parus Electro" data-en="Parus Electro Equipment">Оборудование Parus Electro</h3>
-      <p data-ru="Все расчёты CAPEX и технические параметры учитывают характеристики станций Parus Electro — вашего ключевого поставщика. Решение готово к масштабированию без закупки нового оборудования." data-en="All CAPEX calculations and technical parameters account for Parus Electro station specs — your key supplier. The solution is ready to scale without new equipment purchases.">Все расчёты CAPEX и технические параметры учитывают характеристики станций Parus Electro — вашего ключевого поставщика. Решение готово к масштабированию без закупки нового оборудования.</p>
-    </div>
-    <div class="glass-card value-card">
-      <div class="value-num">03</div>
-      <h3 data-ru="Сертификаты «Чистая энергия Росатома»" data-en="Rosatom Clean Energy Certificates">Сертификаты «Чистая энергия Росатома»</h3>
-      <p data-ru="Каждая зарядная сессия на станции, размещённой по нашей модели, может быть подтверждена сертификатом низкоуглеродной энергии. Это усиливает ESG-позицию и открывает доступ к углеродным рынкам." data-en="Every charging session at a station placed by our model can be verified with a low-carbon energy certificate. This strengthens the ESG position and opens access to carbon markets.">Каждая зарядная сессия на станции, размещённой по нашей модели, может быть подтверждена сертификатом низкоуглеродной энергии. Это усиливает ESG-позицию и открывает доступ к углеродным рынкам.</p>
-    </div>
-    <div class="glass-card value-card">
-      <div class="value-num">04</div>
-      <h3 data-ru="Платформенная модель" data-en="Platform Model">Платформенная модель</h3>
-      <p data-ru="С 2026 года РСЗС развивает платформенную модель. Наш цифровой двойник — готовый модуль для подключения сторонних операторов к вашей экосистеме через API и OCPP." data-en="Since 2026, RSZS has been developing a platform model. Our digital twin is a ready module for connecting third-party operators to your ecosystem via API and OCPP.">С 2026 года РСЗС развивает платформенную модель. Наш цифровой двойник — готовый модуль для подключения сторонних операторов к вашей экосистеме через API и OCPP.</p>
-    </div>
-  </div>
-</section>
 
-<!-- ABOUT -->
 <section class="section section-about">
   <div class="section-head">
     <div class="section-eyebrow" data-ru="05 — О проекте" data-en="05 — About">05 — О проекте</div>
@@ -205,15 +203,218 @@
   </div>
 </section>
 
-<!-- TEAM -->
+<section class="section section-system">
+  <div class="section-head">
+    <div class="section-eyebrow" data-ru="06 — Что входит в систему" data-en="06 — System Components">06 — Что входит в систему</div>
+    <h2 data-ru="Четыре модуля цифрового двойника" data-en="Four Modules of the Digital Twin">Четыре модуля цифрового двойника</h2>
+    <p class="section-desc" data-ru="Полный стек: от сбора данных до интерфейса оператора сети" data-en="Full stack: from data collection to network operator interface">Полный стек: от сбора данных до интерфейса оператора сети</p>
+  </div>
+  <div class="system-grid">
+    <div class="glass-card system-card">
+      <div class="system-num">01</div>
+      <h3 data-ru="Data Layer" data-en="Data Layer">Data Layer</h3>
+      <p class="system-role" data-ru="Данные" data-en="Data">Данные</p>
+      <p data-ru="PostGIS + OpenStreetMap + Автостат + OpenChargeMap. Слои трафика, населения, существующих ЭЗС, мощностей подстанций, правовых ограничений." data-en="PostGIS + OpenStreetMap + Autostat + OpenChargeMap. Layers of traffic, population, existing stations, substation capacities, legal constraints.">PostGIS + OpenStreetMap + Автостат + OpenChargeMap. Слои трафика, населения, существующих ЭЗС, мощностей подстанций, правовых ограничений.</p>
+    </div>
+    <div class="glass-card system-card">
+      <div class="system-num">02</div>
+      <h3 data-ru="ML Engine" data-en="ML Engine">ML Engine</h3>
+      <p class="system-role" data-ru="Прогноз спроса" data-en="Demand Forecast">Прогноз спроса</p>
+      <p data-ru="XGBoost-модель прогнозирует почасовую загрузку каждой точки по сегментам: частный транспорт, такси, коммунальная техника, электробусы." data-en="XGBoost model predicts hourly utilization of each location by segment: private transport, taxi, utility vehicles, electric buses.">XGBoost-модель прогнозирует почасовую загрузку каждой точки по сегментам: частный транспорт, такси, коммунальная техника, электробусы.</p>
+    </div>
+    <div class="glass-card system-card">
+      <div class="system-num">03</div>
+      <h3 data-ru="Optimizer" data-en="Optimizer">Optimizer</h3>
+      <p class="system-role" data-ru="Оптимизация" data-en="Optimization">Оптимизация</p>
+      <p data-ru="Многокритериальный отбор: максимум покрытия спроса, минимум CAPEX, учёт свободной мощности подстанции, минимальное расстояние подключения." data-en="Multi-criteria selection: maximize demand coverage, minimize CAPEX, account for free substation capacity, minimize connection distance.">Многокритериальный отбор: максимум покрытия спроса, минимум CAPEX, учёт свободной мощности подстанции, минимальное расстояние подключения.</p>
+    </div>
+    <div class="glass-card system-card">
+      <div class="system-num">04</div>
+      <h3 data-ru="Web Interface" data-en="Web Interface">Web Interface</h3>
+      <p class="system-role" data-ru="Интерфейс оператора" data-en="Operator Interface">Интерфейс оператора</p>
+      <p data-ru="Карта с приоритетными локациями, KPI по сети, таблица экономики, сценарии развития до 2030. Интеграция с OCPP и платформой Росатома." data-en="Map with priority locations, network KPIs, economics table, development scenarios through 2030. Integration with OCPP and Rosatom platform.">Карта с приоритетными локациями, KPI по сети, таблица экономики, сценарии развития до 2030. Интеграция с OCPP и платформой Росатома.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-comparison">
+  <div class="section-head">
+    <div class="section-eyebrow" data-ru="07 — Сравнение подходов" data-en="07 — Comparison">07 — Сравнение подходов</div>
+    <h2 data-ru="Цифровой двойник против традиционного размещения" data-en="Digital Twin vs Traditional Placement">Цифровой двойник против традиционного размещения</h2>
+    <p class="section-desc" data-ru="Результаты моделирования на тестовом сценарии Москвы — 20 локаций" data-en="Modeling results on a test scenario for Moscow — 20 locations">Результаты моделирования на тестовом сценарии Москвы — 20 локаций</p>
+  </div>
+  <div class="compare-grid">
+    <div class="glass-card compare-card">
+      <div class="compare-tag" data-ru="Традиционный подход" data-en="Traditional Approach">Традиционный подход</div>
+      <div class="compare-metric">
+        <span class="compare-value">61%</span>
+        <span class="compare-label" data-ru="средняя загрузка станций" data-en="average station utilization">средняя загрузка станций</span>
+      </div>
+      <div class="compare-metric">
+        <span class="compare-value">4,8 года</span>
+        <span class="compare-label" data-ru="средняя окупаемость" data-en="average payback">средняя окупаемость</span>
+      </div>
+      <div class="compare-metric">
+        <span class="compare-value">18%</span>
+        <span class="compare-label" data-ru="станций простаивают" data-en="stations are idle">станций простаивают</span>
+      </div>
+    </div>
+    <div class="glass-card compare-card">
+      <div class="compare-tag good" data-ru="Цифровой двойник" data-en="Digital Twin">Цифровой двойник</div>
+      <div class="compare-metric">
+        <span class="compare-value good">78%</span>
+        <span class="compare-label" data-ru="средняя загрузка станций" data-en="average station utilization">средняя загрузка станций</span>
+      </div>
+      <div class="compare-metric">
+        <span class="compare-value good">3,2 года</span>
+        <span class="compare-label" data-ru="средняя окупаемость" data-en="average payback">средняя окупаемость</span>
+      </div>
+      <div class="compare-metric">
+        <span class="compare-value good">4%</span>
+        <span class="compare-label" data-ru="станций простаивают" data-en="stations are idle">станций простаивают</span>
+      </div>
+    </div>
+  </div>
+  <div class="compare-summary glass-card">
+    <div class="compare-summary-item">
+      <div class="compare-summary-value">+17 п.п.</div>
+      <div class="compare-summary-label" data-ru="рост загрузки сети" data-en="network utilization growth">рост загрузки сети</div>
+    </div>
+    <div class="compare-summary-item">
+      <div class="compare-summary-value">−1,6 года</div>
+      <div class="compare-summary-label" data-ru="сокращение окупаемости" data-en="payback reduction">сокращение окупаемости</div>
+    </div>
+    <div class="compare-summary-item">
+      <div class="compare-summary-value">−78%</div>
+      <div class="compare-summary-label" data-ru="простаивающих станций" data-en="idle stations">простаивающих станций</div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-legal">
+  <div class="section-head">
+    <div class="section-eyebrow" data-ru="08 — Правовой аспект" data-en="08 — Legal Framework">08 — Правовой аспект</div>
+    <h2 data-ru="Где разрешено и где запрещено размещать ЭЗС" data-en="Where EV Charging Stations Can and Cannot Be Placed">Где разрешено и где запрещено размещать ЭЗС</h2>
+    <p class="section-desc" data-ru="Нормативные принципы, которые автоматически учитываются оптимизатором при выборе локаций" data-en="Regulatory principles automatically taken into account by the optimizer when selecting locations">Нормативные принципы, которые автоматически учитываются оптимизатором при выборе локаций</p>
+  </div>
+  <div class="legal-grid">
+    <div class="glass-card legal-card legal-allowed">
+      <div class="legal-icon">✓</div>
+      <h3 data-ru="Разрешено и приоритетно" data-en="Allowed and Preferred">Разрешено и приоритетно</h3>
+      <ul>
+        <li data-ru="Земли транспортной инфраструктуры: вдоль магистралей, у транспортно-пересадочных узлов, в границах парковок" data-en="Transport infrastructure lands: along highways, near transit hubs, within parking areas">Земли транспортной инфраструктуры: вдоль магистралей, у транспортно-пересадочных узлов, в границах парковок</li>
+        <li data-ru="Территории торговых, деловых и многофункциональных центров при наличии свободной мощности" data-en="Shopping, business and mixed-use center territories if free power capacity exists">Территории торговых, деловых и многофункциональных центров при наличии свободной мощности</li>
+        <li data-ru="Площадки придорожного сервиса: АЗС, кафе, гостиницы" data-en="Roadside service areas: gas stations, cafés, hotels">Площадки придорожного сервиса: АЗС, кафе, гостиницы</li>
+        <li data-ru="Коммунальные и таксомоторные парки, депо электробусов" data-en="Utility and taxi fleets, electric bus depots">Коммунальные и таксомоторные парки, депо электробусов</li>
+      </ul>
+    </div>
+    <div class="glass-card legal-card legal-restricted">
+      <div class="legal-icon">✕</div>
+      <h3 data-ru="Запрещено или ограничено" data-en="Prohibited or Restricted">Запрещено или ограничено</h3>
+      <ul>
+        <li data-ru="Земли особо охраняемых природных территорий, водоохранные зоны" data-en="Specially protected natural areas, water protection zones">Земли особо охраняемых природных территорий, водоохранные зоны</li>
+        <li data-ru="Санитарно-защитные зоны промышленных объектов без согласования" data-en="Sanitary protection zones of industrial sites without approval">Санитарно-защитные зоны промышленных объектов без согласования</li>
+        <li data-ru="Исторические и культурные зоны без разрешения органов охраны наследия" data-en="Historical and cultural zones without heritage authority permits">Исторические и культурные зоны без разрешения органов охраны наследия</li>
+        <li data-ru="Точки без свободной мощности подстанции — требуется дорогостоящая модернизация" data-en="Points without free substation capacity — expensive modernization required">Точки без свободной мощности подстанции — требуется дорогостоящая модернизация</li>
+        <li data-ru="Площадки, нарушающие пешеходные и транспортные потоки" data-en="Locations disrupting pedestrian and traffic flows">Площадки, нарушающие пешеходные и транспортные потоки</li>
+      </ul>
+    </div>
+  </div>
+  <div class="glass-card legal-note">
+    <strong data-ru="Как это учтено в системе: " data-en="How this is handled in the system: ">Как это учтено в системе: </strong>
+    <span data-ru="каждая потенциальная точка проходит автоматическую проверку по слоям — землепользование, охранные зоны, свободная мощность подстанции, нормативные отступы. Локации, не проходящие фильтр, исключаются из оптимизации до этапа экономики." data-en="every potential location passes an automatic layer-based check — land use, protected zones, free substation capacity, regulatory distances. Locations that fail the filter are excluded from optimization before the economics stage.">каждая потенциальная точка проходит автоматическую проверку по слоям — землепользование, охранные зоны, свободная мощность подстанции, нормативные отступы. Локации, не проходящие фильтр, исключаются из оптимизации до этапа экономики.</span>
+  </div>
+</section>
+
+<section class="section section-sources">
+  <div class="section-head">
+    <div class="section-eyebrow" data-ru="09 — Источники и стек" data-en="09 — Sources & Stack">09 — Источники и стек</div>
+    <h2 data-ru="На чём построена система" data-en="What the System Is Built On">На чём построена система</h2>
+    <p class="section-desc" data-ru="Открытые данные, технологии и источники, использованные в проекте" data-en="Open data, technologies and sources used in the project">Открытые данные, технологии и источники, использованные в проекте</p>
+  </div>
+  <div class="sources-grid">
+    <div class="glass-card source-card">
+      <div class="source-label" data-ru="Данные" data-en="Data">Данные</div>
+      <ul>
+        <li>OpenStreetMap</li>
+        <li>OpenChargeMap</li>
+        <li data-ru="Автостат" data-en="Autostat">Автостат</li>
+        <li>2Chargers</li>
+        <li data-ru="Минпромторг РФ" data-en="Ministry of Industry and Trade">Минпромторг РФ</li>
+        <li>WorldPop</li>
+      </ul>
+    </div>
+    <div class="glass-card source-card">
+      <div class="source-label" data-ru="Прогноз и ML" data-en="Forecasting & ML">Прогноз и ML</div>
+      <ul>
+        <li>Python 3.11</li>
+        <li>XGBoost</li>
+        <li>scikit-learn</li>
+        <li>pandas / numpy</li>
+        <li>joblib</li>
+      </ul>
+    </div>
+    <div class="glass-card source-card">
+      <div class="source-label" data-ru="Геоданные" data-en="Geodata">Геоданные</div>
+      <ul>
+        <li>PostgreSQL + PostGIS</li>
+        <li>GeoPandas</li>
+        <li>Shapely</li>
+        <li>Leaflet</li>
+        <li>QGIS</li>
+      </ul>
+    </div>
+    <div class="glass-card source-card">
+      <div class="source-label" data-ru="Интерфейс" data-en="Interface">Интерфейс</div>
+      <ul>
+        <li>HTML / CSS / JavaScript</li>
+        <li>Streamlit</li>
+        <li>GitHub Pages</li>
+        <li>OCPP</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section-value">
+  <div class="section-head">
+    <div class="section-eyebrow" data-ru="10 — Что мы даём Росатому" data-en="10 — Value for Rosatom">10 — Что мы даём Росатому</div>
+    <h2 data-ru="Как цифровой двойник работает в вашей экосистеме" data-en="How the Digital Twin Works in Your Ecosystem">Как цифровой двойник работает в вашей экосистеме</h2>
+    <p class="section-desc" data-ru="Четыре конкретные точки интеграции с существующей инфраструктурой Росатома" data-en="Four concrete integration points with Rosatom's existing infrastructure">Четыре конкретные точки интеграции с существующей инфраструктурой Росатома</p>
+  </div>
+  <div class="value-grid">
+    <div class="glass-card value-card">
+      <div class="value-num">01</div>
+      <h3 data-ru="Существующая сеть 290+ станций" data-en="Existing Network of 290+ Stations">Существующая сеть 290+ станций</h3>
+      <p data-ru="Оптимизатор работает на исторических данных загрузки ваших станций в Москве, Екатеринбурге, Сочи. Модель настраивается под реальный профиль спроса каждого города." data-en="The optimizer works on historical load data from your stations in Moscow, Yekaterinburg, Sochi. The model adapts to the real demand profile of each city.">Оптимизатор работает на исторических данных загрузки ваших станций в Москве, Екатеринбурге, Сочи. Модель настраивается под реальный профиль спроса каждого города.</p>
+    </div>
+    <div class="glass-card value-card">
+      <div class="value-num">02</div>
+      <h3 data-ru="Оборудование Parus Electro" data-en="Parus Electro Equipment">Оборудование Parus Electro</h3>
+      <p data-ru="Все расчёты CAPEX и технические параметры учитывают характеристики станций Parus Electro — вашего ключевого поставщика. Решение готово к масштабированию без закупки нового оборудования." data-en="All CAPEX calculations and technical parameters account for Parus Electro station specs — your key supplier. The solution is ready to scale without new equipment purchases.">Все расчёты CAPEX и технические параметры учитывают характеристики станций Parus Electro — вашего ключевого поставщика. Решение готово к масштабированию без закупки нового оборудования.</p>
+    </div>
+    <div class="glass-card value-card">
+      <div class="value-num">03</div>
+      <h3 data-ru="Сертификаты «Чистая энергия Росатома»" data-en="Rosatom Clean Energy Certificates">Сертификаты «Чистая энергия Росатома»</h3>
+      <p data-ru="Каждая зарядная сессия на станции, размещённой по нашей модели, может быть подтверждена сертификатом низкоуглеродной энергии. Это усиливает ESG-позицию и открывает доступ к углеродным рынкам." data-en="Every charging session at a station placed by our model can be verified with a low-carbon energy certificate. This strengthens the ESG position and opens access to carbon markets.">Каждая зарядная сессия на станции, размещённой по нашей модели, может быть подтверждена сертификатом низкоуглеродной энергии. Это усиливает ESG-позицию и открывает доступ к углеродным рынкам.</p>
+    </div>
+    <div class="glass-card value-card">
+      <div class="value-num">04</div>
+      <h3 data-ru="Платформенная модель" data-en="Platform Model">Платформенная модель</h3>
+      <p data-ru="С 2026 года РСЗС развивает платформенную модель. Наш цифровой двойник — готовый модуль для подключения сторонних операторов к вашей экосистеме через API и OCPP." data-en="Since 2026, RSZS has been developing a platform model. Our digital twin is a ready module for connecting third-party operators to your ecosystem via API and OCPP.">С 2026 года РСЗС развивает платформенную модель. Наш цифровой двойник — готовый модуль для подключения сторонних операторов к вашей экосистеме через API и OCPP.</p>
+    </div>
+  </div>
+</section>
+
 <section class="section section-team">
   <div class="section-head">
-    <div class="section-eyebrow" data-ru="06 — Команда" data-en="06 — Team">06 — Команда</div>
+    <div class="section-eyebrow" data-ru="11 — Команда" data-en="11 — Team">11 — Команда</div>
     <h2 data-ru="Состав Азимута" data-en="Azimuth Team">Состав Азимута</h2>
     <p class="section-desc" data-ru="Специалисты Российского университета транспорта, работающие над проектом" data-en="Specialists from the Russian University of Transport working on the project">Специалисты Российского университета транспорта, работающие над проектом</p>
   </div>
   <div class="team-grid">
     <div class="team-card">
+      <div class="team-photo"><img src="team-dmitry.jpg" alt=""></div>
       <div class="team-name">Дмитрий Юдин</div>
       <div class="team-hover">
         <div class="team-role">Product Lead</div>
@@ -221,6 +422,7 @@
       </div>
     </div>
     <div class="team-card">
+      <div class="team-photo"><img src="team-polina.jpg" alt=""></div>
       <div class="team-name">Полина Сиротенко</div>
       <div class="team-hover">
         <div class="team-role">Data Scientist</div>
@@ -228,6 +430,7 @@
       </div>
     </div>
     <div class="team-card">
+      <div class="team-photo"><img src="team-anna.jpg" alt=""></div>
       <div class="team-name">Анна Волкова</div>
       <div class="team-hover">
         <div class="team-role">GIS Engineer</div>
@@ -235,6 +438,7 @@
       </div>
     </div>
     <div class="team-card">
+      <div class="team-photo"><img src="team-nikolay.jpg" alt=""></div>
       <div class="team-name">Николай Комягин</div>
       <div class="team-hover">
         <div class="team-role">Economist</div>
@@ -244,10 +448,9 @@
   </div>
 </section>
 
-<!-- INTERVIEW -->
 <section class="section section-interview">
   <div class="section-head">
-    <div class="section-eyebrow" data-ru="07 — Интервью" data-en="07 — Interview">07 — Интервью</div>
+    <div class="section-eyebrow" data-ru="12 — Интервью" data-en="12 — Interview">12 — Интервью</div>
     <h2 data-ru="Экспертное мнение" data-en="Expert Opinion">Экспертное мнение</h2>
     <p class="section-desc" data-ru="Позиция представителя Росатома о развитии зарядной инфраструктуры" data-en="Rosatom representative's view on charging infrastructure development">Позиция представителя Росатома о развитии зарядной инфраструктуры</p>
   </div>
@@ -268,9 +471,48 @@
   </div>
 </section>
 
-<!-- FINALE -->
+<section class="section section-pilot">
+  <div class="section-head">
+    <div class="section-eyebrow" data-ru="13 — План пилота" data-en="13 — Pilot Plan">13 — План пилота</div>
+    <h2 data-ru="Как это внедряется в Москве" data-en="How This Is Implemented in Moscow">Как это внедряется в Москве</h2>
+    <p class="section-desc" data-ru="Три этапа — от пилотного кластера до масштабирования на всю сеть Росатома" data-en="Three stages — from a pilot cluster to scaling across the entire Rosatom network">Три этапа — от пилотного кластера до масштабирования на всю сеть Росатома</p>
+  </div>
+  <div class="pilot-grid">
+    <div class="glass-card pilot-card">
+      <div class="pilot-stage" data-ru="Этап 1" data-en="Stage 1">Этап 1</div>
+      <div class="pilot-time" data-ru="0–3 месяца" data-en="0–3 months">0–3 месяца</div>
+      <h3 data-ru="Пилотный кластер" data-en="Pilot Cluster">Пилотный кластер</h3>
+      <p data-ru="Развёртывание цифрового двойника на данных 50 существующих станций Москвы. Обучение ML-модели на исторических данных загрузки." data-en="Deploying the digital twin on data from 50 existing Moscow stations. Training the ML model on historical load data.">Развёртывание цифрового двойника на данных 50 существующих станций Москвы. Обучение ML-модели на исторических данных загрузки.</p>
+      <div class="pilot-metric" data-ru="Метрика: точность прогноза спроса ≥ 85%" data-en="Metric: demand forecast accuracy ≥ 85%">Метрика: точность прогноза спроса ≥ 85%</div>
+    </div>
+    <div class="glass-card pilot-card">
+      <div class="pilot-stage" data-ru="Этап 2" data-en="Stage 2">Этап 2</div>
+      <div class="pilot-time" data-ru="3–9 месяцев" data-en="3–9 months">3–9 месяцев</div>
+      <h3 data-ru="Оптимизация сети" data-en="Network Optimization">Оптимизация сети</h3>
+      <p data-ru="Запуск оптимизатора, отбор 20 приоритетных локаций для новых ЭЗС. Сравнение с эмпирическим размещением на реальных данных." data-en="Launching the optimizer, selecting 20 priority locations for new charging stations. Comparison with empirical placement on real data.">Запуск оптимизатора, отбор 20 приоритетных локаций для новых ЭЗС. Сравнение с эмпирическим размещением на реальных данных.</p>
+      <div class="pilot-metric" data-ru="Метрика: рост средней загрузки на 15%" data-en="Metric: average utilization growth by 15%">Метрика: рост средней загрузки на 15%</div>
+    </div>
+    <div class="glass-card pilot-card">
+      <div class="pilot-stage" data-ru="Этап 3" data-en="Stage 3">Этап 3</div>
+      <div class="pilot-time" data-ru="9–18 месяцев" data-en="9–18 months">9–18 месяцев</div>
+      <h3 data-ru="Масштабирование" data-en="Scaling">Масштабирование</h3>
+      <p data-ru="Расширение на 5 городов присутствия Росатома. Интеграция с OCPP и платформой РСЗС. Подключение сторонних операторов." data-en="Expansion to 5 cities where Rosatom operates. Integration with OCPP and the RSZS platform. Connecting third-party operators.">Расширение на 5 городов присутствия Росатома. Интеграция с OCPP и платформой РСЗС. Подключение сторонних операторов.</p>
+      <div class="pilot-metric" data-ru="Метрика: 500+ станций под управлением системы" data-en="Metric: 500+ stations managed by the system">Метрика: 500+ станций под управлением системы</div>
+    </div>
+  </div>
+</section>
+
 <section class="finale">
   <div class="finale-content">
+    <div class="finale-azimuth">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="azimuth-svg">
+        <path d="M 60 150 L 100 50 L 140 150 L 120 150 L 115 135 L 85 135 L 80 150 Z M 90 118 L 110 118 L 100 85 Z" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="55" y1="125" x2="145" y2="125" stroke="rgba(255,255,255,0.95)" stroke-width="2"/>
+        <path d="M 155 90 L 158 100 L 168 103 L 158 106 L 155 116 L 152 106 L 142 103 L 152 100 Z" fill="rgba(255,255,255,0.95)"/>
+      </svg>
+      <div class="finale-azimuth-name">АЗИМУТ</div>
+      <div class="finale-azimuth-sub" data-ru="цифровой двойник зарядной инфраструктуры" data-en="digital twin of charging infrastructure">цифровой двойник зарядной инфраструктуры</div>
+    </div>
     <p class="finale-intro">
       <span data-ru="Команда «Азимут» Российского университета транспорта старается специально для" data-en="The Azimuth team of the Russian University of Transport is proud to present to">Команда «Азимут» Российского университета транспорта старается специально для</span>
     </p>
@@ -283,18 +525,56 @@
 
 <footer class="footer">
   <div class="footer-inner">
-    <div class="footer-logos">
-      <img src="mintrans.png" alt="Министерство транспорта РФ" class="footer-logo">
-      <div class="footer-logo-text">
-        <div class="footer-logo-title">РОСАТОМ</div>
-        <div class="footer-logo-sub" data-ru="Сеть зарядных станций" data-en="Charging Station Network">Сеть зарядных станций</div>
+
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-brand-title">РОСАТОМ</div>
+        <div class="footer-brand-sub" data-ru="Сеть зарядных станций" data-en="Charging Station Network">Сеть зарядных станций</div>
       </div>
-      <img src="rut.png" alt="Российский университет транспорта" class="footer-logo">
+      <div class="footer-brand">
+        <div class="footer-brand-title">АЗИМУТ</div>
+        <div class="footer-brand-sub" data-ru="Команда РУТ (МИИТ)" data-en="RUT (MIIT) Team">Команда РУТ (МИИТ)</div>
+      </div>
     </div>
-    <div class="footer-meta">
-      <div data-ru="© 2026 · Прототип цифрового двойника зарядной инфраструктуры" data-en="© 2026 · Digital Twin of Charging Infrastructure Prototype">© 2026 · Прототип цифрового двойника зарядной инфраструктуры</div>
-      <div class="footer-small" data-ru="Москва · Пилотный сценарий" data-en="Moscow · Pilot Scenario">Москва · Пилотный сценарий</div>
+
+    <div class="footer-columns">
+      <div class="footer-col">
+        <div class="footer-col-title" data-ru="Контакты" data-en="Contacts">Контакты</div>
+        <a href="https://t.me/azimutteam" target="_blank" rel="noopener" class="footer-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+          <span>@azimutteam</span>
+        </a>
+        <a href="https://github.com/linaiceblue7/digitaltwin" target="_blank" rel="noopener" class="footer-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-1.93c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18.92-.26 1.9-.38 2.88-.39.98 0 1.96.13 2.88.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>
+          <span>GitHub</span>
+        </a>
+        <a href="https://miit.ru" target="_blank" rel="noopener" class="footer-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span>miit.ru</span>
+        </a>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title" data-ru="Проект" data-en="Project">Проект</div>
+        <a href="#metrics" class="footer-link" data-ru="Метрики" data-en="Metrics">Метрики</a>
+        <a href="#map-section" class="footer-link" data-ru="Карта" data-en="Map">Карта</a>
+        <a href="#table-section" class="footer-link" data-ru="Локации" data-en="Locations">Локации</a>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title" data-ru="Партнёры" data-en="Partners">Партнёры</div>
+        <div class="footer-partners-text">
+          <div data-ru="Министерство транспорта РФ" data-en="Ministry of Transport of Russia">Министерство транспорта РФ</div>
+          <div data-ru="Российский университет транспорта" data-en="Russian University of Transport">Российский университет транспорта</div>
+        </div>
+      </div>
     </div>
+
+    <div class="footer-bottom">
+      <div data-ru="© 2026 · Цифровой двойник зарядной инфраструктуры" data-en="© 2026 · Digital Twin of Charging Infrastructure">© 2026 · Цифровой двойник зарядной инфраструктуры</div>
+      <div class="footer-small" data-ru="Команда «Азимут» · РУТ (МИИТ)" data-en="Azimuth Team · RUT (MIIT)">Команда «Азимут» · РУТ (МИИТ)</div>
+    </div>
+
   </div>
 </footer>
 

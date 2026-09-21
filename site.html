@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Цифровой двойник зарядной инфраструктуры</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Unbounded:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- МЕНЮ -->
+<button id="menuBtn" class="menu-btn" aria-label="Open menu">
+  <span class="menu-icon"><span></span><span></span><span></span></span>
+  <span class="menu-label">Меню</span>
+</button>
+
+<div id="menuOverlay" class="menu-overlay">
+  <div class="menu-panel">
+    <button id="menuClose" class="menu-close">✕</button>
+    <div class="menu-header">
+      <div class="menu-title">Азимут</div>
+      <div class="menu-subtitle">Цифровой двойник зарядной инфраструктуры</div>
+    </div>
+    <nav class="menu-nav">
+      <a href="#metrics" class="menu-link">01 — Метрики</a>
+      <a href="#map-section" class="menu-link">03 — Карта</a>
+      <a href="#table-section" class="menu-link">04 — Локации</a>
+      <a href="#team" class="menu-link">11 — Команда</a>
+      <a href="#finale" class="menu-link">Финал</a>
+    </nav>
+    <div class="menu-footer">
+      <a href="https://t.me/azimutteam" target="_blank" class="menu-contact">@azimutteam</a>
+      <a href="https://github.com/linaiceblue7/digitaltwin" target="_blank" class="menu-contact">GitHub</a>
+    </div>
+  </div>
+</div>
+
+<!-- ЯЗЫК -->
+<div class="lang-switcher">
+  <button id="langBtn" class="lang-btn">
+    <span class="lang-current">RU</span>
+    <span class="lang-arrow">⇄</span>
+    <span class="lang-other">EN</span>
+  </button>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span data-ru="РОСАТОМ · СЕТЬ ЗАРЯДНЫХ СТАНЦИЙ" data-en="ROSATOM · CHARGING STATION NETWORK">РОСАТОМ · СЕТЬ ЗАРЯДНЫХ СТАНЦИЙ</span>
+    <span class="topbar-sep">|</span>
+    <span data-ru="РОССИЙСКИЙ УНИВЕРСИТЕТ ТРАНСПОРТА" data-en="RUSSIAN UNIVERSITY OF TRANSPORT">РОССИЙСКИЙ УНИВЕРСИТЕТ ТРАНСПОРТА</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <h1 class="hero-title">
+      <span class="line-1" data-ru="Цифровой двойник" data-en="Digital Twin">Цифровой двойник</span>
+      <span class="line-2" data-ru="зарядной инфраструктуры" data-en="of Charging Infrastructure">зарядной инфраструктуры</span>
+    </h1>
+    <p class="hero-subtitle" data-ru="Система оптимального размещения электрозарядных станций в мегаполисе с учётом транспортного спроса, ограничений энергосети и экономики" data-en="A system for optimal placement of EV charging stations in a metropolis, considering transport demand, power grid constraints and economics">Система оптимального размещения электрозарядных станций в мегаполисе с учётом транспортного спроса, ограничений энергосети и экономики</p>
+    <div class="hero-problem">
+      <span class="hero-problem-label">Проблема</span>
+      <p class="hero-problem-text">Сегодня 40% зарядных станций простаивают, а 30% перегружены в часы пик. Инвестиции окупаются 7–10 лет вместо 3. Причина — станции размещают эмпирически, без анализа спроса и мощности городских подстанций.</p>
+    </div>
+    <div class="hero-actions">
+      <a href="#metrics" class="btn btn-primary">Смотреть метрики</a>
+      <a href="#map-section" class="btn btn-ghost">Открыть карту</a>
+    </div>
+  </div>
+</section>
+
+<!-- ПРОБЛЕМА -->
+<section class="section section-problem">
+  <div class="section-head">
+    <div class="section-eyebrow">Проблема и решение</div>
+    <h2>Почему существующий подход не работает</h2>
+  </div>
+  <div class="problem-grid">
+    <div class="glass-card problem-card">
+      <div class="problem-icon">✕</div>
+      <h3>Что не так сегодня</h3>
+      <ul>
+        <li>Станции ставят там, где «кажется удобно», без анализа спроса</li>
+        <li>Часть локаций простаивает, часть перегружена — очереди в часы пик</li>
+        <li>Мощность подстанций не учитывается — половина точек технически непригодна</li>
+        <li>Инвестиции окупаются 7–10 лет вместо 3–4</li>
+      </ul>
+    </div>
+    <div class="glass-card solution-card">
+      <div class="problem-icon good">✓</div>
+      <h3>Что делаем мы</h3>
+      <ul>
+        <li>Цифровой двойник города: слои транспорта, спроса, энергосети, POI</li>
+        <li>ML-прогноз почасовой загрузки каждой потенциальной локации</li>
+        <li>Многокритериальный оптимизатор: спрос + мощность + CAPEX</li>
+        <li>Экономическая оценка каждой точки: NPV, IRR, окупаемость</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- МЕТРИКИ -->
+<section id="metrics" class="section section-metrics">
+  <div class="section-head">
+    <div class="section-eyebrow">01 — Метрики проекта</div>
+    <h2>Ключевые показатели</h2>
+  </div>
+  <div class="glass-grid" id="kpiGrid"></div>
+</section>
+
+<!-- РЫНОК -->
+<section class="section section-market">
+  <div class="section-head">
+    <div class="section-eyebrow">02 — Рынок</div>
+    <h2>Электромобильность в России сегодня</h2>
+  </div>
+  <div class="glass-grid glass-grid-4">
+    <div class="glass-card market-card">
+      <div class="market-value">9 889</div>
+      <div class="market-label">публичных ЭЗС в России</div>
+      <div class="market-sub">из них 5 004 быстрых (DC) — 51%</div>
+    </div>
+    <div class="glass-card market-card">
+      <div class="market-value">290+</div>
+      <div class="market-label">станций Росатома</div>
+      <div class="market-sub">в 16 регионах, план — 11 000 к 2030</div>
+    </div>
+    <div class="glass-card market-card">
+      <div class="market-value">+94,7%</div>
+      <div class="market-label">рост продаж EV и гибридов</div>
+      <div class="market-sub">70 180 шт. за 7 месяцев 2026</div>
+    </div>
+    <div class="glass-card market-card">
+      <div class="market-value">26,3%</div>
+      <div class="market-label">доля российских электромобилей</div>
+      <div class="market-sub">год назад было 11,1%</div>
+    </div>
+  </div>
+</section>
+
+<!-- КАРТА -->
+<section id="map-section" class="section section-map">
+  <div class="section-head">
+    <div class="section-eyebrow">03 — Карта</div>
+    <h2>Приоритетные локации</h2>
+    <p class="section-desc">Кликните на точку, чтобы увидеть экономику станции</p>
+  </div>
+  <div class="map-controls glass-card">
+    <div class="control-group">
+      <label>Мощность</label>
+      <select id="powerFilter">
+        <option value="0">Все</option>
+        <option value="50">от 50 кВт</option>
+        <option value="150">от 150 кВт</option>
+        <option value="350">350 кВт</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label>Топ <span id="topValue">20</span></label>
+      <input type="range" id="topFilter" min="5" max="20" value="20" />
+    </div>
+    <div class="legend">
+      <div class="legend-item"><span class="dot green"></span>50 кВт</div>
+      <div class="legend-item"><span class="dot yellow"></span>150 кВт</div>
+      <div class="legend-item"><span class="dot red"></span>350 кВт</div>
+    </div>
+  </div>
+  <div id="map"></div>
+</section>
+
+<!-- ТАБЛИЦА -->
+<section id="table-section" class="section section-locations">
+  <div class="section-head">
+    <div class="section-eyebrow">04 — Локации</div>
+    <h2>Топ-20 приоритетных локаций</h2>
+  </div>
+  <div class="glass-card table-card">
+    <table id="locTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Мощность</th>
+          <th>Прогноз спроса</th>
+          <th>CAPEX</th>
+          <th>NPV</th>
+          <th>IRR</th>
+          <th>Окупаемость</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- КОМАНДА -->
+<section id="team" class="section section-team">
+  <div class="section-head">
+    <div class="section-eyebrow">11 — Команда</div>
+    <h2>Состав Азимута</h2>
+  </div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-photo"><img src="team-dmitry.jpg" alt=""></div>
+      <div class="team-name">Дмитрий Юдин</div>
+      <div class="team-hover"><div class="team-role">Product Lead</div><div class="team-desc">Отвечает за видение продукта и защиту проекта.</div></div>
+    </div>
+    <div class="team-card">
+      <div class="team-photo"><img src="team-polina.jpg" alt=""></div>
+      <div class="team-name">Полина Сиротенко</div>
+      <div class="team-hover"><div class="team-role">Data Scientist</div><div class="team-desc">Разрабатывает ML-модель прогноза спроса.</div></div>
+    </div>
+    <div class="team-card">
+      <div class="team-photo"><img src="team-anna.jpg" alt=""></div>
+      <div class="team-name">Анна Волкова</div>
+      <div class="team-hover"><div class="team-role">GIS Engineer</div><div class="team-desc">Строит геоинформационные слои.</div></div>
+    </div>
+    <div class="team-card">
+      <div class="team-photo"><img src="team-nikolay.jpg" alt=""></div>
+      <div class="team-name">Николай Комягин</div>
+      <div class="team-hover"><div class="team-role">Economist</div><div class="team-desc">Считает NPV, IRR, CAPEX и OPEX.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ФИНАЛ -->
+<section id="finale" class="finale">
+  <div class="finale-content">
+    <div class="finale-azimuth">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="azimuth-svg">
+        <path d="M 60 150 L 100 50 L 140 150 L 120 150 L 115 135 L 85 135 L 80 150 Z M 90 118 L 110 118 L 100 85 Z" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="55" y1="125" x2="145" y2="125" stroke="rgba(255,255,255,0.95)" stroke-width="2"/>
+        <path d="M 155 90 L 158 100 L 168 103 L 158 106 L 155 116 L 152 106 L 142 103 L 152 100 Z" fill="rgba(255,255,255,0.95)"/>
+      </svg>
+      <div class="finale-azimuth-name">АЗИМУТ</div>
+      <div class="finale-azimuth-sub">цифровой двойник зарядной инфраструктуры</div>
+    </div>
+    <p class="finale-intro">Команда <span class="finale-azimuth-word">«Азимут»</span> Российского университета транспорта старается специально для</p>
+    <div class="finale-logo"><div class="finale-front">РОСАТОМ</div></div>
+    <p class="finale-sub">сеть зарядных станций</p>
+  </div>
+</section>
+
+<!-- ФУТЕР -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand"><div class="footer-brand-title">РОСАТОМ</div><div class="footer-brand-sub">Сеть зарядных станций</div></div>
+      <div class="footer-brand"><div class="footer-brand-title">АЗИМУТ</div><div class="footer-brand-sub">Команда РУТ (МИИТ)</div></div>
+    </div>
+    <div class="footer-columns">
+      <div class="footer-col">
+        <div class="footer-col-title">Контакты</div>
+        <a href="https://t.me/azimutteam" class="footer-link">@azimutteam</a>
+        <a href="https://github.com/linaiceblue7/digitaltwin" class="footer-link">GitHub</a>
+        <a href="https://miit.ru" class="footer-link">miit.ru</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Проект</div>
+        <a href="#metrics" class="footer-link">Метрики</a>
+        <a href="#map-section" class="footer-link">Карта</a>
+        <a href="#table-section" class="footer-link">Локации</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Партнёры</div>
+        <div class="footer-partners-text">
+          <div>Министерство транспорта РФ</div>
+          <div>РУТ (МИИТ)</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 · Цифровой двойник зарядной инфраструктуры</div>
+      <div class="footer-small">Команда «Азимут» · РУТ (МИИТ)</div>
+    </div>
+  </div>
+</footer>
+
+<!-- Leaflet -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- ДАННЫЕ И ЛОГИКА -->
+<script>
+const DATA = [
+  {"priority":1,"latitude":55.8582191749769,"longitude":37.705860373117176,"power_kw":350,"predicted_demand_kwh":169.3,"npv":49525865,"irr":1.0,"payback_years":1.0,"capex":10500000,"annual_revenue":11123628},
+  {"priority":2,"latitude":55.84223204654922,"longitude":37.67461333235306,"power_kw":350,"predicted_demand_kwh":176.4,"npv":52148413,"irr":1.0,"payback_years":1.0,"capex":10500000,"annual_revenue":11587777},
+  {"priority":3,"latitude":55.782869300193966,"longitude":37.71754682543382,"power_kw":350,"predicted_demand_kwh":160.2,"npv":46140312,"irr":0.954,"payback_years":2.0,"capex":10500000,"annual_revenue":10524438},
+  {"priority":4,"latitude":55.69351332282682,"longitude":37.614092074158656,"power_kw":350,"predicted_demand_kwh":158.8,"npv":45626804,"irr":0.945,"payback_years":2.0,"capex":10500000,"annual_revenue":10433556},
+  {"priority":5,"latitude":55.77726788295647,"longitude":37.43468065043759,"power_kw":350,"predicted_demand_kwh":137.0,"npv":37521282,"irr":0.807,"payback_years":2.0,"capex":10500000,"annual_revenue":8999007},
+  {"priority":6,"latitude":55.64227726749243,"longitude":37.74850787049763,"power_kw":350,"predicted_demand_kwh":139.6,"npv":38513831,"irr":0.824,"payback_years":2.0,"capex":10500000,"annual_revenue":9174672},
+  {"priority":7,"latitude":55.716020603890165,"longitude":37.41163596786791,"power_kw":350,"predicted_demand_kwh":148.5,"npv":41811423,"irr":0.88,"payback_years":2.0,"capex":10500000,"annual_revenue":9758294},
+  {"priority":8,"latitude":55.72958350559264,"longitude":37.72481644952361,"power_kw":350,"predicted_demand_kwh":129.6,"npv":34770786,"irr":0.76,"payback_years":2.0,"capex":10500000,"annual_revenue":8512212},
+  {"priority":9,"latitude":55.75742692948967,"longitude":37.77324570255901,"power_kw":350,"predicted_demand_kwh":172.5,"npv":50694264,"irr":1.0,"payback_years":1.0,"capex":10500000,"annual_revenue":11330416},
+  {"priority":10,"latitude":55.780334503522965,"longitude":37.40253079192311,"power_kw":350,"predicted_demand_kwh":150.6,"npv":42593888,"irr":0.893,"payback_years":2.0,"capex":10500000,"annual_revenue":9896777},
+  {"priority":11,"latitude":55.78969174917808,"longitude":37.72164410922117,"power_kw":350,"predicted_demand_kwh":128.3,"npv":34305629,"irr":0.752,"payback_years":2.0,"capex":10500000,"annual_revenue":8429887},
+  {"priority":12,"latitude":55.65961470446025,"longitude":37.80505669733959,"power_kw":350,"predicted_demand_kwh":153.7,"npv":43735540,"irr":0.913,"payback_years":2.0,"capex":10500000,"annual_revenue":10098832},
+  {"priority":13,"latitude":55.70990855298811,"longitude":37.58385790152972,"power_kw":350,"predicted_demand_kwh":150.9,"npv":42673856,"irr":0.895,"payback_years":2.0,"capex":10500000,"annual_revenue":9910930},
+  {"priority":14,"latitude":55.8355527884179,"longitude":37.52199482168954,"power_kw":350,"predicted_demand_kwh":157.7,"npv":45230999,"irr":0.938,"payback_years":2.0,"capex":10500000,"annual_revenue":10363504},
+  {"priority":15,"latitude":55.76073240522243,"longitude":37.67280839465796,"power_kw":350,"predicted_demand_kwh":139.2,"npv":38347525,"irr":0.821,"payback_years":2.0,"capex":10500000,"annual_revenue":9145238},
+  {"priority":16,"latitude":55.82848588459861,"longitude":37.69288779063673,"power_kw":350,"predicted_demand_kwh":119.0,"npv":30844359,"irr":0.693,"payback_years":2.0,"capex":10500000,"annual_revenue":7817297},
+  {"priority":17,"latitude":55.877408085483566,"longitude":37.71447142338994,"power_kw":350,"predicted_demand_kwh":115.5,"npv":29542191,"irr":0.671,"payback_years":2.0,"capex":10500000,"annual_revenue":7586834},
+  {"priority":18,"latitude":55.75362791748979,"longitude":37.44722148037796,"power_kw":350,"predicted_demand_kwh":127.3,"npv":33931789,"irr":0.746,"payback_years":2.0,"capex":10500000,"annual_revenue":8363723},
+  {"priority":19,"latitude":55.845166660060364,"longitude":37.54101728628565,"power_kw":350,"predicted_demand_kwh":141.1,"npv":39050002,"irr":0.833,"payback_years":2.0,"capex":10500000,"annual_revenue":9269566},
+  {"priority":20,"latitude":55.75080370696866,"longitude":37.42265200488602,"power_kw":150,"predicted_demand_kwh":92.8,"npv":27136232,"irr":1.0,"payback_years":1.0,"capex":4500000,"annual_revenue":6099112}
+];
+
+let map, markers = [], allData = [];
+
+function initKPI(data) {
+  const avgNpv = data.reduce((s, d) => s + d.npv, 0) / data.length;
+  const avgIrr = data.reduce((s, d) => s + d.irr, 0) / data.length;
+  const avgPayback = data.reduce((s, d) => s + d.payback_years, 0) / data.length;
+  const totalCapex = data.reduce((s, d) => s + d.capex, 0);
+  const avgPower = data.reduce((s, d) => s + d.power_kw, 0) / data.length;
+  const kpis = [
+    { num: '01', label: 'Приоритетных локаций', value: data.length, suffix: '', sub: 'по результатам оптимизации', decimals: 0 },
+    { num: '02', label: 'Средняя мощность', value: avgPower, suffix: ' кВт', sub: 'на одну станцию', decimals: 0 },
+    { num: '03', label: 'Средний NPV', value: avgNpv / 1e6, suffix: ' млн ₽', sub: 'за 10 лет', decimals: 1 },
+    { num: '04', label: 'Средний IRR', value: avgIrr * 100, suffix: '%', sub: 'внутренняя норма доходности', decimals: 0 },
+    { num: '05', label: 'Окупаемость', value: avgPayback, suffix: ' лет', sub: 'средний срок возврата', decimals: 1 },
+    { num: '06', label: 'Суммарный CAPEX', value: totalCapex / 1e6, suffix: ' млн ₽', sub: 'инвестиции в топ-20', decimals: 0 }
+  ];
+  document.getElementById('kpiGrid').innerHTML = kpis.map(k => `
+    <div class="glass-card">
+      <div class="kpi-icon">${k.num}</div>
+      <div class="kpi-label">${k.label}</div>
+      <div class="kpi-value" data-target="${k.value}" data-suffix="${k.suffix}" data-decimals="${k.decimals}">0</div>
+      <div class="kpi-sub">${k.sub}</div>
+    </div>
+  `).join('');
+  document.querySelectorAll('.kpi-value').forEach(el => {
+    animateCounter(el, parseFloat(el.dataset.target), el.dataset.suffix || '', parseInt(el.dataset.decimals) || 0);
+  });
+}
+
+function animateCounter(el, target, suffix, decimals) {
+  const duration = 1400;
+  const start = performance.now();
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = (target * eased).toFixed(decimals) + suffix;
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+function initMap(data) {
+  map = L.map('map', { zoomControl: true, attributionControl: false }).setView([55.7558, 37.6173], 10);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+  renderMarkers(data);
+}
+
+function renderMarkers(data) {
+  if (!map) return;
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
+  data.forEach(d => {
+    const color = d.power_kw >= 350 ? '#EF4444' : d.power_kw >= 150 ? '#F59E0B' : '#10B981';
+    const radius = d.power_kw >= 350 ? 11 : d.power_kw >= 150 ? 9 : 7;
+    const marker = L.circleMarker([d.latitude, d.longitude], {
+      radius, fillColor: color, color: '#fff', weight: 2.5, opacity: 1, fillOpacity: 0.9
+    }).addTo(map);
+    marker.bindPopup(`
+      <div class="popup-title">Локация №${d.priority}</div>
+      <div class="popup-row"><span>Мощность:</span><span>${d.power_kw} кВт</span></div>
+      <div class="popup-row"><span>NPV:</span><span>${(d.npv / 1e6).toFixed(1)} млн ₽</span></div>
+      <div class="popup-row"><span>IRR:</span><span>${(d.irr * 100).toFixed(0)}%</span></div>
+      <div class="popup-row"><span>Окупаемость:</span><span>${d.payback_years} лет</span></div>
+    `);
+    markers.push(marker);
+  });
+}
+
+function initTable(data) {
+  document.querySelector('#locTable tbody').innerHTML = data.map(d => {
+    const npvClass = d.npv > 30000000 ? 'good' : d.npv > 15000000 ? '' : 'warn';
+    const payClass = d.payback_years <= 3 ? 'good' : d.payback_years <= 5 ? '' : 'warn';
+    return `<tr>
+      <td class="priority">${d.priority}</td>
+      <td>${d.power_kw} кВт</td>
+      <td>${d.predicted_demand_kwh} кВт·ч</td>
+      <td>${(d.capex / 1e6).toFixed(1)} млн ₽</td>
+      <td class="${npvClass}">${(d.npv / 1e6).toFixed(1)} млн ₽</td>
+      <td>${(d.irr * 100).toFixed(0)}%</td>
+      <td class="${payClass}">${d.payback_years} лет</td>
+    </tr>`;
+  }).join('');
+}
+
+function initControls() {
+  const pf = document.getElementById('powerFilter');
+  const tf = document.getElementById('topFilter');
+  if (pf) pf.addEventListener('change', applyFilters);
+  if (tf) tf.addEventListener('input', e => {
+    document.getElementById('topValue').textContent = e.target.value;
+    applyFilters();
+  });
+}
+
+function applyFilters() {
+  if (!allData || allData.length === 0) return;
+  const minPower = parseInt(document.getElementById('powerFilter').value);
+  const topN = parseInt(document.getElementById('topFilter').value);
+  const filtered = allData.filter(d => d.power_kw >= minPower).slice(0, topN);
+  renderMarkers(filtered);
+  initTable(filtered);
+}
+
+function initMenu() {
+  const menuBtn = document.getElementById('menuBtn');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const menuClose = document.getElementById('menuClose');
+  if (!menuBtn || !menuOverlay) return;
+  function openMenu() { menuOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { menuOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+  menuBtn.addEventListener('click', openMenu);
+  if (menuClose) menuClose.addEventListener('click', closeMenu);
+  menuOverlay.addEventListener('click', e => { if (e.target === menuOverlay) closeMenu(); });
+  document.querySelectorAll('.menu-link').forEach(l => l.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+}
+
+function initLang() {
+  const langBtn = document.getElementById('langBtn');
+  if (!langBtn) return;
+  const savedLang = localStorage.getItem('site-lang') || 'ru';
+  function applyLanguage(lang) {
+    document.querySelectorAll('[data-ru][data-en]').forEach(el => {
+      const text = lang === 'ru' ? el.dataset.ru : el.dataset.en;
+      if (text) el.textContent = text;
+    });
+    if (lang === 'en') { document.body.classList.add('lang-en'); document.documentElement.lang = 'en'; }
+    else { document.body.classList.remove('lang-en'); document.documentElement.lang = 'ru'; }
+  }
+  applyLanguage(savedLang);
+  langBtn.addEventListener('click', () => {
+    const isEn = !document.body.classList.contains('lang-en');
+    const newLang = isEn ? 'en' : 'ru';
+    localStorage.setItem('site-lang', newLang);
+    applyLanguage(newLang);
+    initKPI(allData);
+    initTable(allData);
+  });
+}
+
+// Инициализация после загрузки DOM
+document.addEventListener('DOMContentLoaded', function() {
+  allData = DATA;
+  initKPI(DATA);
+  initMap(DATA);
+  initTable(DATA);
+  initControls();
+  initMenu();
+  initLang();
+});
+</script>
+
+</body>
+</html>

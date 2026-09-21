@@ -45,16 +45,18 @@ document.addEventListener('DOMContentLoaded', function () {
 // ==============================================
 let map, markers = [], allData = [];
 
-fetch('data.json')
-  .then(r => r.json())
-  .then(data => {
-    allData = data;
-    initKPI(data);
-    initMap(data);
-    initTable(data);
-    initControls();
-  })
-  .catch(err => console.error('Ошибка загрузки data.json:', err));
+(function loadData() {
+  const data = typeof DATA !== 'undefined' ? DATA : (window.DATA || []);
+  if (!data || data.length === 0) {
+    console.error('DATA пуст или не найден');
+    return;
+  }
+  allData = data;
+  initKPI(data);
+  initMap(data);
+  initTable(data);
+  initControls();
+})();
 
 // ==============================================
 // KPI
