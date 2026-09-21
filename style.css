@@ -1486,6 +1486,205 @@ td.warn {
   .menu-title { font-size: 22px; }
 }
 
+/* ==================================================
+   МОДАЛЬНЫЕ ОКНА
+   ================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99998;
+  background: rgba(10, 17, 54, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  overflow-y: auto;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  position: relative;
+  background: linear-gradient(180deg, #0C1446 0%, #0A1136 100%);
+  border: 1px solid rgba(72, 202, 228, 0.25);
+  border-radius: 24px;
+  max-width: 800px;
+  width: 100%;
+  padding: 56px 56px 48px;
+  transform: translateY(30px);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-overlay.open .modal-content {
+  transform: translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+.modal-eyebrow {
+  font-family: 'Unbounded', 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #48CAE4;
+  margin-bottom: 16px;
+}
+
+.modal-title {
+  font-family: 'Unbounded', 'Inter', sans-serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 32px;
+  line-height: 1.2;
+}
+
+.modal-body {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.modal-body h3 {
+  font-family: 'Unbounded', 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #48CAE4;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  letter-spacing: 0.02em;
+}
+
+.modal-body p {
+  margin-bottom: 16px;
+}
+
+.modal-body ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.modal-body li {
+  padding-left: 24px;
+  position: relative;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.modal-body li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: #48CAE4;
+  font-weight: 700;
+}
+
+.modal-team {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.modal-team-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 20px;
+  transition: all 0.3s;
+}
+
+.modal-team-card:hover {
+  background: rgba(72, 202, 228, 0.08);
+  border-color: rgba(72, 202, 228, 0.3);
+}
+
+.modal-team-name {
+  font-family: 'Unbounded', 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 6px;
+}
+
+.modal-team-role {
+  font-size: 12px;
+  color: #48CAE4;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.modal-team-desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
+
+.menu-open-modal {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.menu-arrow {
+  opacity: 0.5;
+  font-size: 16px;
+  transition: transform 0.3s;
+}
+
+.menu-open-modal:hover .menu-arrow {
+  transform: translateX(4px);
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .modal-content { padding: 40px 24px 32px; }
+  .modal-team { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 768px) {
   .section { padding: 60px 24px; }
   .hero { padding: 60px 24px; }
