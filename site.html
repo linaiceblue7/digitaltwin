@@ -3,16 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Цифровой двойник зарядной инфраструктуры Москвы. Оптимальное размещение ЭЗС на основе ML-прогноза спроса и экономической оценки.">
+<meta property="og:title" content="Цифровой двойник зарядной инфраструктуры">
+<meta property="og:description" content="Система оптимального размещения ЭЗС в мегаполисе. 20 приоритетных локаций Москвы.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta name="theme-color" content="#0C1446">
 <title>Цифровой двойник зарядной инфраструктуры</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230C1446'/%3E%3Cpath d='M 30 70 L 50 30 L 70 70' stroke='%2348CAE4' stroke-width='6' fill='none' stroke-linejoin='round'/%3E%3Cline x1='40' y1='55' x2='60' y2='55' stroke='%2348CAE4' stroke-width='5'/%3E%3Ccircle cx='75' cy='30' r='5' fill='%2348CAE4'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Unbounded:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
-<!-- МЕНЮ -->
 <button id="menuBtn" class="menu-btn" aria-label="Open menu">
   <span class="menu-icon"><span></span><span></span><span></span></span>
   <span class="menu-label">Меню</span>
@@ -22,15 +29,27 @@
   <div class="menu-panel">
     <button id="menuClose" class="menu-close">✕</button>
     <div class="menu-header">
-      <div class="menu-title">Азимут</div>
-      <div class="menu-subtitle">Цифровой двойник зарядной инфраструктуры</div>
+      <div class="menu-title">Цифровой двойник</div>
+      <div class="menu-subtitle">Зарядной инфраструктуры</div>
     </div>
     <nav class="menu-nav">
       <a href="#metrics" class="menu-link">01 — Метрики</a>
       <a href="#map-section" class="menu-link">03 — Карта</a>
       <a href="#table-section" class="menu-link">04 — Локации</a>
+      <a href="#methodology" class="menu-link">05 — Методология</a>
+      <a href="#solutions" class="menu-link">06 — Карта решений</a>
+      <a href="#factors" class="menu-link">07 — Факторы и риски</a>
+      <a href="#sources" class="menu-link">09 — Источники</a>
       <a href="#team" class="menu-link">11 — Команда</a>
-      <a href="#finale" class="menu-link">Финал</a>
+      <button type="button" class="menu-link menu-open-modal" data-modal="modal-history">
+  <span>История проекта</span><span class="menu-arrow">→</span>
+</button>
+      <button type="button" class="menu-link menu-open-modal" data-modal="modal-rosatom">
+        <span>О Росатоме</span><span class="menu-arrow">→</span>
+      </button>
+      <button type="button" class="menu-link menu-open-modal" data-modal="modal-azimuth">
+        <span>Про Азимут</span><span class="menu-arrow">→</span>
+      </button>
     </nav>
     <div class="menu-footer">
       <a href="https://t.me/azimutteam" target="_blank" class="menu-contact">@azimutteam</a>
@@ -39,7 +58,203 @@
   </div>
 </div>
 
-<!-- ЯЗЫК -->
+<div id="modal-rosatom" class="modal-overlay">
+  <div class="modal-content">
+    <button class="modal-close" data-close-modal>✕</button>
+    <div class="modal-eyebrow">О компании</div>
+    <h2 class="modal-title">Росатом · Сеть зарядных станций</h2>
+    <div class="modal-body">
+      <p>ООО «Росатом Сеть зарядных станций» — специализированная дочерняя компания Росатома, созданная для развития электрозарядной инфраструктуры в России в рамках стратегического направления «Электромобильность».</p>
+      <h3>Масштаб</h3>
+      <ul>
+        <li>290+ электрозарядных станций в 16 регионах России</li>
+        <li>Наиболее крупный кластер быстрых станций — в Москве</li>
+        <li>План — 11 000 ЭЗС в 53 регионах к 2030 году</li>
+      </ul>
+      <h3>Технологии</h3>
+      <ul>
+        <li>Поддержка стандартов GBT, CCS, CHAdeMO</li>
+        <li>Мощность станций до 150 кВт, быстрая зарядка</li>
+        <li>Ключевой поставщик оборудования — Парус Электро</li>
+      </ul>
+      <h3>Устойчивое развитие</h3>
+      <p>Использование низкоуглеродной электроэнергии, подтверждённой сертификатами «Чистая энергия Росатома».</p>
+    </div>
+  </div>
+</div>
+
+<div id="modal-azimuth" class="modal-overlay">
+  <div class="modal-content">
+    <button class="modal-close" data-close-modal>✕</button>
+    <div class="modal-eyebrow">О команде</div>
+    <h2 class="modal-title">Команда «Азимут»</h2>
+    <div class="modal-body">
+      <p>Студенты и специалисты Российского университета транспорта (РУТ МИИТ), работающие над цифровым двойником зарядной инфраструктуры для Росатома.</p>
+      <div class="modal-team">
+        <div class="modal-team-card">
+          <div class="modal-team-name">Дмитрий Юдин</div>
+          <div class="modal-team-role">Product Lead</div>
+          <div class="modal-team-desc">Видение продукта, коммуникация с заказчиком, защита проекта.</div>
+        </div>
+        <div class="modal-team-card">
+          <div class="modal-team-name">Полина Сиротенко</div>
+          <div class="modal-team-role">Data Scientist</div>
+          <div class="modal-team-desc">ML-модель прогноза спроса, обработка данных, XGBoost.</div>
+        </div>
+        <div class="modal-team-card">
+          <div class="modal-team-name">Анна Волкова</div>
+          <div class="modal-team-role">GIS Engineer</div>
+          <div class="modal-team-desc">Геоинформационные слои, PostGIS, OpenStreetMap.</div>
+        </div>
+        <div class="modal-team-card">
+          <div class="modal-team-name">Николай Комягин</div>
+          <div class="modal-team-role">Economist</div>
+          <div class="modal-team-desc">Экономика локаций: NPV, IRR, CAPEX, OPEX.</div>
+        </div>
+      </div>
+      <h3>Университет</h3>
+      <p>Российский университет транспорта (РУТ МИИТ) — ведущий транспортный вуз России.</p>
+    </div>
+  </div>
+</div>
+
+<!-- МОДАЛКА: ИСТОРИЯ ПРОЕКТА -->
+<div id="modal-history" class="modal-overlay">
+  <div class="modal-content history-modal">
+    <button class="modal-close" data-close-modal>✕</button>
+    <div class="modal-eyebrow">Итеративность проекта</div>
+    <h2 class="modal-title">История проекта</h2>
+    <p class="history-intro">Как мы развивали модель от первой идеи до рабочего прототипа. Каждая итерация — реакция на новые данные, замечания и обратную связь.</p>
+
+    <div class="history-timeline">
+
+      <!-- v1 -->
+      <div class="history-item">
+        <div class="history-marker">
+          <div class="history-version">v1</div>
+          <div class="history-line"></div>
+        </div>
+        <div class="history-body">
+          <div class="history-date">Сентябрь 2026 · Итерация 1</div>
+          <h3>Первая версия: синтетические данные</h3>
+          <p>Мы начали с базовой модели: 200 случайно сгенерированных точек в Москве, обучение XGBoost на синтетических признаках. Задача — проверить, что пайплайн работает: данные → прогноз → оптимизация → экономика.</p>
+          <div class="history-insight">
+            <strong>Что поняли:</strong> модель работает, но данные нереалистичные. Синтетика не даёт доверия.
+          </div>
+        </div>
+      </div>
+
+      <!-- v2 -->
+      <div class="history-item">
+        <div class="history-marker">
+          <div class="history-version">v2</div>
+          <div class="history-line"></div>
+        </div>
+        <div class="history-body">
+          <div class="history-date">23 сентября 2026 · Итерация 2</div>
+          <h3>Реальные данные OpenStreetMap</h3>
+          <p>Заменили синтетику на реальные данные: скачали <strong>326 существующих ЭЗС Москвы</strong> и <strong>6 477 потенциальных локаций</strong> (парковки ТЦ, транспортные узлы, деловые центры) через Overpass API.</p>
+          <div class="history-insight">
+            <strong>Что изменилось:</strong> на карте — реальные места Москвы (Смоленский пассаж, ЦСКА, Белорусская, Лефортово). Модель начала отбирать осмысленные локации.
+          </div>
+        </div>
+      </div>
+
+      <!-- v3 -->
+      <div class="history-item">
+        <div class="history-marker">
+          <div class="history-version">v3</div>
+          <div class="history-line"></div>
+        </div>
+        <div class="history-body">
+          <div class="history-date">24 сентября 2026 · Итерация 3</div>
+          <h3>Моделирование станций и сценарии</h3>
+          <p>Добавили два ключевых элемента из ТЗ Росатома: <strong>моделирование работы отдельной станции</strong> (график загрузки по часам) и <strong>сценарии развития сети</strong> 2026 / 2028 / 2030.</p>
+          <div class="history-insight">
+            <strong>Что даёт:</strong> можно кликнуть на любую точку — увидеть прогноз по часам с учётом типа локации и расстояния до центра. И переключить сценарий развития сети.
+          </div>
+        </div>
+      </div>
+
+      <!-- v4 -->
+      <div class="history-item">
+        <div class="history-marker">
+          <div class="history-version">v4</div>
+        </div>
+        <div class="history-body">
+          <div class="history-date">24 сентября 2026 · Итерация 4</div>
+          <h3>Реалистичная экономика и смешанный парк станций</h3>
+          <p>Пересчитали экономику под реальные параметры рынка РФ: CAPEX 40 000 ₽/кВт, OPEX 1,2 млн ₽/год, тариф 20 ₽/кВт·ч, загрузка 8–15% (по данным Росатома). Разделили локации на <strong>10 быстрых (150 кВт)</strong> и <strong>10 медленных (50 кВт)</strong> — как в реальном пилоте.</p>
+          <div class="history-insight">
+            <strong>Результат:</strong> разные типы станций, разный CAPEX, разная окупаемость. Данные стали правдоподобными.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="history-summary">
+      <div class="history-summary-title">Итог</div>
+      <div class="history-summary-grid">
+        <div class="history-summary-item">
+          <div class="history-summary-value">4</div>
+          <div class="history-summary-label">итерации</div>
+        </div>
+        <div class="history-summary-item">
+          <div class="history-summary-value">326</div>
+          <div class="history-summary-label">реальных ЭЗС Москвы</div>
+        </div>
+        <div class="history-summary-item">
+          <div class="history-summary-value">6 477</div>
+          <div class="history-summary-label">потенциальных локаций</div>
+        </div>
+        <div class="history-summary-item">
+          <div class="history-summary-value">20</div>
+          <div class="history-summary-label">приоритетных для пилота</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="stationModal" class="modal-overlay station-modal">
+  <div class="modal-content station-modal-content">
+    <button class="modal-close" data-close-station>✕</button>
+    <div class="station-header">
+      <div class="station-eyebrow">Моделирование станции</div>
+      <h2 class="station-title" id="stationTitle">—</h2>
+      <div class="station-meta">
+        <span id="stationType">—</span>
+        <span class="station-dot">·</span>
+        <span id="stationPower">—</span>
+      </div>
+    </div>
+    <div class="station-body">
+      <div class="station-data">
+        <div class="station-metric"><div class="station-metric-label">Прогноз спроса</div><div class="station-metric-value" id="stationDemand">—</div></div>
+        <div class="station-metric"><div class="station-metric-label">Средняя загрузка</div><div class="station-metric-value" id="stationUtilization">—</div></div>
+        <div class="station-metric"><div class="station-metric-label">Пиковое время</div><div class="station-metric-value" id="stationPeak">—</div></div>
+        <div class="station-metric"><div class="station-metric-label">NPV</div><div class="station-metric-value station-good" id="stationNpv">—</div></div>
+        <div class="station-metric"><div class="station-metric-label">IRR</div><div class="station-metric-value station-good" id="stationIrr">—</div></div>
+        <div class="station-metric"><div class="station-metric-label">Окупаемость</div><div class="station-metric-value" id="stationPayback">—</div></div>
+      </div>
+      <div class="station-chart">
+        <div class="station-chart-title">Прогноз загрузки по часам</div>
+        <canvas id="stationChart"></canvas>
+      </div>
+    </div>
+    <div class="station-recommendations">
+      <div class="station-rec-title">Рекомендации системы</div>
+      <ul>
+        <li id="recPosts">—</li>
+        <li id="recPeak">—</li>
+        <li id="recNeighbors">—</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 <div class="lang-switcher">
   <button id="langBtn" class="lang-btn">
     <span class="lang-current">RU</span>
@@ -48,27 +263,25 @@
   </button>
 </div>
 
-<!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-inner">
-    <span data-ru="РОСАТОМ · СЕТЬ ЗАРЯДНЫХ СТАНЦИЙ" data-en="ROSATOM · CHARGING STATION NETWORK">РОСАТОМ · СЕТЬ ЗАРЯДНЫХ СТАНЦИЙ</span>
+    <span>РОСАТОМ · СЕТЬ ЗАРЯДНЫХ СТАНЦИЙ</span>
     <span class="topbar-sep">|</span>
-    <span data-ru="РОССИЙСКИЙ УНИВЕРСИТЕТ ТРАНСПОРТА" data-en="RUSSIAN UNIVERSITY OF TRANSPORT">РОССИЙСКИЙ УНИВЕРСИТЕТ ТРАНСПОРТА</span>
+    <span>РОССИЙСКИЙ УНИВЕРСИТЕТ ТРАНСПОРТА</span>
   </div>
 </div>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-inner">
     <h1 class="hero-title">
-      <span class="line-1" data-ru="Цифровой двойник" data-en="Digital Twin">Цифровой двойник</span>
-      <span class="line-2" data-ru="зарядной инфраструктуры" data-en="of Charging Infrastructure">зарядной инфраструктуры</span>
+      <span class="line-1">Цифровой двойник</span>
+      <span class="line-2">зарядной инфраструктуры</span>
     </h1>
-    <p class="hero-subtitle" data-ru="Система оптимального размещения электрозарядных станций в мегаполисе с учётом транспортного спроса, ограничений энергосети и экономики" data-en="A system for optimal placement of EV charging stations in a metropolis, considering transport demand, power grid constraints and economics">Система оптимального размещения электрозарядных станций в мегаполисе с учётом транспортного спроса, ограничений энергосети и экономики</p>
+    <p class="hero-subtitle">Система оптимального размещения электрозарядных станций в мегаполисе с учётом транспортного спроса, ограничений энергосети и экономики</p>
     <div class="hero-problem">
       <span class="hero-problem-label">Проблема</span>
-      <p class="hero-problem-text">Сегодня 40% зарядных станций простаивают, а 30% перегружены в часы пик. Инвестиции окупаются 7–10 лет вместо 3. Причина — станции размещают эмпирически, без анализа спроса и мощности городских подстанций.</p>
+      <p class="hero-problem-text">Сегодня 40% зарядных станций простаивают, а 30% перегружены в часы пик. Реальная окупаемость ЭЗС в Москве — 7–10 лет. Причина — станции размещают эмпирически, без анализа спроса и мощности городских подстанций.</p>
     </div>
     <div class="hero-actions">
       <a href="#metrics" class="btn btn-primary">Смотреть метрики</a>
@@ -77,7 +290,6 @@
   </div>
 </section>
 
-<!-- ПРОБЛЕМА -->
 <section class="section section-problem">
   <div class="section-head">
     <div class="section-eyebrow">Проблема и решение</div>
@@ -89,9 +301,9 @@
       <h3>Что не так сегодня</h3>
       <ul>
         <li>Станции ставят там, где «кажется удобно», без анализа спроса</li>
-        <li>Часть локаций простаивает, часть перегружена — очереди в часы пик</li>
-        <li>Мощность подстанций не учитывается — половина точек технически непригодна</li>
-        <li>Инвестиции окупаются 7–10 лет вместо 3–4</li>
+        <li>Реальная загрузка сети Росатома в Москве — 10–12%, в регионах — 3–5%</li>
+        <li>Мощность подстанций не учитывается — подключение дороже самой станции</li>
+        <li>Реальная окупаемость ЭЗС — 7–10 лет вместо целевых 3–4</li>
       </ul>
     </div>
     <div class="glass-card solution-card">
@@ -100,14 +312,13 @@
       <ul>
         <li>Цифровой двойник города: слои транспорта, спроса, энергосети, POI</li>
         <li>ML-прогноз почасовой загрузки каждой потенциальной локации</li>
-        <li>Многокритериальный оптимизатор: спрос + мощность + CAPEX</li>
+        <li>Многокритериальный оптимизатор: спрос + мощность подстанции + CAPEX</li>
         <li>Экономическая оценка каждой точки: NPV, IRR, окупаемость</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- МЕТРИКИ -->
 <section id="metrics" class="section section-metrics">
   <div class="section-head">
     <div class="section-eyebrow">01 — Метрики проекта</div>
@@ -116,11 +327,11 @@
   <div class="glass-grid" id="kpiGrid"></div>
 </section>
 
-<!-- РЫНОК -->
 <section class="section section-market">
   <div class="section-head">
     <div class="section-eyebrow">02 — Рынок</div>
     <h2>Электромобильность в России сегодня</h2>
+    <p class="section-desc">Данные Автостат, 2Chargers, Росатом — 2026</p>
   </div>
   <div class="glass-grid glass-grid-4">
     <div class="glass-card market-card">
@@ -134,59 +345,64 @@
       <div class="market-sub">в 16 регионах, план — 11 000 к 2030</div>
     </div>
     <div class="glass-card market-card">
-      <div class="market-value">+94,7%</div>
-      <div class="market-label">рост продаж EV и гибридов</div>
-      <div class="market-sub">70 180 шт. за 7 месяцев 2026</div>
+      <div class="market-value">208 тыс.</div>
+      <div class="market-label">парк EV и гибридов</div>
+      <div class="market-sub">данные Автостат, апрель 2026</div>
     </div>
     <div class="glass-card market-card">
-      <div class="market-value">26,3%</div>
-      <div class="market-label">доля российских электромобилей</div>
-      <div class="market-sub">год назад было 11,1%</div>
+      <div class="market-value">10–12%</div>
+      <div class="market-label">загрузка станций в Москве</div>
+      <div class="market-sub">реальная загрузка сети Росатома</div>
     </div>
   </div>
 </section>
 
-<!-- КАРТА -->
 <section id="map-section" class="section section-map">
   <div class="section-head">
     <div class="section-eyebrow">03 — Карта</div>
     <h2>Приоритетные локации</h2>
-    <p class="section-desc">Кликните на точку, чтобы увидеть экономику станции</p>
+    <p class="section-desc">Серые точки — существующие ЭЗС Москвы. Оранжевые — рекомендованные моделью. Кликните на оранжевую точку для моделирования станции.</p>
   </div>
   <div class="map-controls glass-card">
+    <div class="control-group">
+      <label>Сценарий</label>
+      <select id="yearFilter">
+        <option value="2026">2026 — пилот (20 станций)</option>
+        <option value="2028">2028 — расширение (35 станций)</option>
+        <option value="2030">2030 — масштабирование (60 станций)</option>
+      </select>
+    </div>
     <div class="control-group">
       <label>Мощность</label>
       <select id="powerFilter">
         <option value="0">Все</option>
         <option value="50">от 50 кВт</option>
         <option value="150">от 150 кВт</option>
-        <option value="350">350 кВт</option>
       </select>
     </div>
-    <div class="control-group">
-      <label>Топ <span id="topValue">20</span></label>
-      <input type="range" id="topFilter" min="5" max="20" value="20" />
-    </div>
     <div class="legend">
-      <div class="legend-item"><span class="dot green"></span>50 кВт</div>
+      <div class="legend-item"><span class="dot gray"></span>Существующие ЭЗС</div>
       <div class="legend-item"><span class="dot yellow"></span>150 кВт</div>
-      <div class="legend-item"><span class="dot red"></span>350 кВт</div>
     </div>
   </div>
   <div id="map"></div>
 </section>
 
-<!-- ТАБЛИЦА -->
 <section id="table-section" class="section section-locations">
   <div class="section-head">
     <div class="section-eyebrow">04 — Локации</div>
-    <h2>Топ-20 приоритетных локаций</h2>
+    <h2>Приоритетные локации по сценарию</h2>
+    <p class="section-desc">Отобраны моделью из 6 477 реальных потенциальных локаций Москвы</p>
   </div>
+  <div class="table-actions">
+  <button id="downloadCsvBtn" class="btn-download">Скачать CSV с 20 локациями</button>
+</div>
   <div class="glass-card table-card">
     <table id="locTable">
       <thead>
         <tr>
           <th>#</th>
+          <th>Название</th>
           <th>Мощность</th>
           <th>Прогноз спроса</th>
           <th>CAPEX</th>
@@ -200,7 +416,233 @@
   </div>
 </section>
 
-<!-- КОМАНДА -->
+<section id="factors" class="section section-factors">
+  <div class="section-head">
+    <div class="section-eyebrow">07 — Анализ ситуации</div>
+    <h2>Факторы и риски</h2>
+    <p class="section-desc">Что влияет на успех проекта — снаружи и изнутри. Что может пойти не так.</p>
+  </div>
+
+  <div class="factors-grid">
+    <div class="glass-card factor-card factor-external">
+      <div class="factor-label">Внешние факторы</div>
+      <ul>
+        <li><strong>Рост рынка EV:</strong> +94,7% продаж за 7 месяцев 2026 — спрос растёт</li>
+        <li><strong>Господдержка:</strong> субсидии до 60% CAPEX на зарядную инфраструктуру</li>
+        <li><strong>Тарифы:</strong> 18–23 ₽/кВт·ч — экономика станции зависит от региона</li>
+        <li><strong>Конкуренция:</strong> 9 889 публичных ЭЗС в РФ, из них 51% быстрых</li>
+      </ul>
+    </div>
+
+    <div class="glass-card factor-card factor-internal">
+      <div class="factor-label">Внутренние факторы</div>
+      <ul>
+        <li><strong>Ограничение модели:</strong> прогноз спроса — модельный, не из реальных зарядных сессий</li>
+        <li><strong>Мощность подстанций:</strong> данных от сетевых организаций пока нет</li>
+        <li><strong>Синтетика трафика:</strong> используем OSM-плотность, а не реальный трафик Яндекса</li>
+        <li><strong>Экономика:</strong> расчёт по средним, а не по фактическим тарифам Росатома</li>
+      </ul>
+    </div>
+  </div>
+
+<div class="risks-block glass-card">
+  <div class="risks-title">Риски и как мы их закрываем</div>
+  <div class="risks-grid">
+    <div class="risk-item">
+      <div class="risk-header">
+        <span class="risk-icon">⚠</span>
+        <span class="risk-name">Низкая загрузка станции</span>
+      </div>
+      <div class="risk-solution">
+        <span class="risk-solution-label">Решение:</span>
+        Отбор локаций через ML-прогноз + учёт конкуренции
+      </div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-header">
+        <span class="risk-icon">⚠</span>
+        <span class="risk-name">Дорогое подключение к сети</span>
+      </div>
+      <div class="risk-solution">
+        <span class="risk-solution-label">Решение:</span>
+        Учёт расстояния до подстанции в скор-функции
+      </div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-header">
+        <span class="risk-icon">⚠</span>
+        <span class="risk-name">Неравномерный рост рынка EV</span>
+      </div>
+      <div class="risk-solution">
+        <span class="risk-solution-label">Решение:</span>
+        Сценарии 2026 / 2028 / 2030 с разной плотностью сети
+      </div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-header">
+        <span class="risk-icon">⚠</span>
+        <span class="risk-name">Регуляторные ограничения</span>
+      </div>
+      <div class="risk-solution">
+        <span class="risk-solution-label">Решение:</span>
+        Фильтр по землепользованию и охранным зонам
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="solutions" class="section section-solutions">
+  <div class="section-head">
+    <div class="section-eyebrow">06 — Карта решений</div>
+    <h2>Какие подходы мы рассмотрели</h2>
+    <p class="section-desc">Прежде чем остановиться на цифровом двойнике, мы изучили альтернативные подходы и их ограничения</p>
+  </div>
+
+  <div class="solutions-grid">
+    <div class="glass-card solution-card rejected">
+      <div class="solution-status">Отклонено</div>
+      <h3>Простое наращивание станций</h3>
+      <p>Строить больше ЭЗС без анализа. Работает быстро, но не решает проблему — растёт CAPEX, а загрузка остаётся низкой.</p>
+      <div class="solution-limit"><strong>Ограничение:</strong> нет учёта спроса</div>
+    </div>
+
+    <div class="glass-card solution-card rejected">
+      <div class="solution-status">Отклонено</div>
+      <h3>Только транспортные данные</h3>
+      <p>Размещать станции по трафику без учёта энергосети. Половина точек оказывается технически непригодной.</p>
+      <div class="solution-limit"><strong>Ограничение:</strong> нет данных о мощности подстанций</div>
+    </div>
+
+    <div class="glass-card solution-card rejected">
+      <div class="solution-status">Отклонено</div>
+      <h3>ГИС-модели размещения</h3>
+      <p>Красивые карты с многокритериальным анализом, но без динамики спроса и сценариев развития.</p>
+      <div class="solution-limit"><strong>Ограничение:</strong> статично, нет прогноза</div>
+    </div>
+
+    <div class="glass-card solution-card rejected">
+      <div class="solution-status">Отклонено</div>
+      <h3>Зарубежные практики</h3>
+      <p>Модели Tesla, Ionity, Shell Recharge. Не подходят: другая плотность застройки, энергосети и регулирование.</p>
+      <div class="solution-limit"><strong>Ограничение:</strong> не адаптированы под РФ</div>
+    </div>
+
+    <div class="glass-card solution-card chosen">
+      <div class="solution-status chosen-status">Наш выбор</div>
+      <h3>Цифровой двойник города</h3>
+      <p>Комбинация реальных данных OSM, ML-прогноза спроса, многокритериальной оптимизации и экономической оценки. Работает на 6 477 локациях Москвы.</p>
+      <div class="solution-limit chosen-limit"><strong>Преимущество:</strong> полный пайплайн от данных до решения</div>
+    </div>
+  </div>
+</section>
+
+<section id="methodology" class="section section-methodology">
+  <div class="section-head">
+    <div class="section-eyebrow">05 — Методология отбора</div>
+    <h2>Как мы выбираем локации</h2>
+    <p class="section-desc">Из 6 477 реальных потенциальных локаций Москвы модель отбирает 20 приоритетных — по интегральному скору из 4 критериев</p>
+  </div>
+
+  <div class="method-grid">
+    <div class="glass-card method-card method-main">
+      <div class="method-num">50%</div>
+      <h3>Прогноз спроса</h3>
+      <p>ML-модель оценивает почасовую загрузку каждой точки на основе типа локации, расстояния до центра, конкуренции и плотности населения рядом.</p>
+    </div>
+    <div class="glass-card method-card method-main">
+      <div class="method-num">25%</div>
+      <h3>Свободная мощность</h3>
+      <p>Учитываем расстояние до существующих ЭЗС: если рядом уже есть станция — снижаем скор из-за каннибализации потока.</p>
+    </div>
+    <div class="glass-card method-card method-secondary">
+      <div class="method-num">15%</div>
+      <h3>Близость к центру</h3>
+      <p>Центр Москвы даёт более высокую загрузку за счёт плотности трафика и точек притяжения.</p>
+    </div>
+    <div class="glass-card method-card method-secondary">
+      <div class="method-num">10%</div>
+      <h3>Тип локации</h3>
+      <p>Торговые центры и транспортные узлы приоритетнее обычных парковок: выше посещаемость и регулярность.</p>
+    </div>
+  </div>
+
+  <div class="method-formula glass-card">
+    <div class="method-formula-label">Формула отбора</div>
+    <div class="method-formula-value">
+      score = 0,50 × спрос + 0,25 × конкуренция + 0,15 × центр + 0,10 × тип
+    </div>
+    <div class="method-formula-note">
+      Дополнительное ограничение: между отобранными станциями — минимум 1,5 км, чтобы не дублировать покрытие.
+    </div>
+  </div>
+
+  <div class="method-result glass-card">
+    <div class="method-result-title">Результат</div>
+    <div class="method-result-body">
+      <div class="method-result-item">
+        <div class="method-result-value">6 477</div>
+        <div class="method-result-label">потенциальных локаций Москвы</div>
+      </div>
+      <div class="method-result-arrow">→</div>
+      <div class="method-result-item">
+        <div class="method-result-value">20</div>
+        <div class="method-result-label">приоритетных для пилота 2026</div>
+      </div>
+      <div class="method-result-arrow">→</div>
+      <div class="method-result-item">
+        <div class="method-result-value">60</div>
+        <div class="method-result-label">к 2030 году</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sources" class="section section-sources">
+  <div class="section-head">
+    <div class="section-eyebrow">09 — Источники и стек</div>
+    <h2>На чём построена система</h2>
+    <p class="section-desc">Открытые данные, технологии и источники, использованные в проекте</p>
+  </div>
+  <div class="sources-grid">
+    <div class="glass-card source-card">
+      <div class="source-label">Данные рынка</div>
+      <ul>
+        <li><a href="https://www.autostat.ru" target="_blank">Автостат</a> — парк и продажи EV, апрель 2026</li>
+        <li><a href="https://2chargers.ru" target="_blank">2Chargers</a> — статистика ЭЗС РФ, I кв. 2026</li>
+        <li><a href="https://rosatom.ru" target="_blank">Росатом</a> — данные РСЗС, июль 2026</li>
+        <li><a href="https://minpromtorg.gov.ru" target="_blank">Минпромторг РФ</a> — отраслевая статистика</li>
+      </ul>
+    </div>
+    <div class="glass-card source-card">
+      <div class="source-label">Прогноз и ML</div>
+      <ul>
+        <li>Python 3.11</li>
+        <li>XGBoost — модель прогноза спроса</li>
+        <li>scikit-learn</li>
+        <li>pandas / numpy</li>
+      </ul>
+    </div>
+    <div class="glass-card source-card">
+      <div class="source-label">Геоданные</div>
+      <ul>
+        <li><a href="https://www.openstreetmap.org" target="_blank">OpenStreetMap</a></li>
+        <li><a href="https://overpass-api.de" target="_blank">Overpass API</a></li>
+        <li>326 существующих ЭЗС Москвы</li>
+        <li>6 477 потенциальных локаций</li>
+      </ul>
+    </div>
+    <div class="glass-card source-card">
+      <div class="source-label">Тарифы и экономика</div>
+      <ul>
+        <li>АПОЭ — тарифы DC-станций, май 2026</li>
+        <li>Росатом — тариф для такси, июль 2026</li>
+        <li>Московский паркинг — тарифы хабов</li>
+        <li>МОЭСК — техприсоединение</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <section id="team" class="section section-team">
   <div class="section-head">
     <div class="section-eyebrow">11 — Команда</div>
@@ -210,27 +652,26 @@
     <div class="team-card">
       <div class="team-photo"><img src="team-dmitry.jpg" alt=""></div>
       <div class="team-name">Дмитрий Юдин</div>
-      <div class="team-hover"><div class="team-role">Product Lead</div><div class="team-desc">Отвечает за видение продукта и защиту проекта.</div></div>
+      <div class="team-hover"><div class="team-role">Product Lead</div><div class="team-desc">Видение продукта и защита проекта.</div></div>
     </div>
     <div class="team-card">
       <div class="team-photo"><img src="team-polina.jpg" alt=""></div>
       <div class="team-name">Полина Сиротенко</div>
-      <div class="team-hover"><div class="team-role">Data Scientist</div><div class="team-desc">Разрабатывает ML-модель прогноза спроса.</div></div>
+      <div class="team-hover"><div class="team-role">Data Scientist</div><div class="team-desc">ML-модель прогноза спроса.</div></div>
     </div>
     <div class="team-card">
       <div class="team-photo"><img src="team-anna.jpg" alt=""></div>
       <div class="team-name">Анна Волкова</div>
-      <div class="team-hover"><div class="team-role">GIS Engineer</div><div class="team-desc">Строит геоинформационные слои.</div></div>
+      <div class="team-hover"><div class="team-role">GIS Engineer</div><div class="team-desc">Геоинформационные слои.</div></div>
     </div>
     <div class="team-card">
       <div class="team-photo"><img src="team-nikolay.jpg" alt=""></div>
       <div class="team-name">Николай Комягин</div>
-      <div class="team-hover"><div class="team-role">Economist</div><div class="team-desc">Считает NPV, IRR, CAPEX и OPEX.</div></div>
+      <div class="team-hover"><div class="team-role">Economist</div><div class="team-desc">Экономика локаций.</div></div>
     </div>
   </div>
 </section>
 
-<!-- ФИНАЛ -->
 <section id="finale" class="finale">
   <div class="finale-content">
     <div class="finale-azimuth">
@@ -248,7 +689,6 @@
   </div>
 </section>
 
-<!-- ФУТЕР -->
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-top">
@@ -276,57 +716,63 @@
         </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <div>© 2026 · Цифровой двойник зарядной инфраструктуры</div>
-      <div class="footer-small">Команда «Азимут» · РУТ (МИИТ)</div>
-    </div>
+    <div class="footer-disclaimer">
+  Данные: OpenStreetMap (326 существующих ЭЗС, 6 477 потенциальных локаций Москвы). 
+  Прогноз спроса и экономика — модель команды «Азимут». В пилоте — реальные данные Росатома.
+</div>
+<div class="footer-bottom">
+  <div>© 2026 · Цифровой двойник зарядной инфраструктуры</div>
+  <div class="footer-small">Команда «Азимут» · РУТ (МИИТ) · <a href="mailto:azimut.miit@yandex.ru">azimut.miit@yandex.ru</a></div>
+</div>
   </div>
 </footer>
 
-<!-- Leaflet -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<!-- ДАННЫЕ И ЛОГИКА -->
 <script>
-const DATA = [
-  {"priority":1,"latitude":55.8582191749769,"longitude":37.705860373117176,"power_kw":350,"predicted_demand_kwh":169.3,"npv":49525865,"irr":1.0,"payback_years":1.0,"capex":10500000,"annual_revenue":11123628},
-  {"priority":2,"latitude":55.84223204654922,"longitude":37.67461333235306,"power_kw":350,"predicted_demand_kwh":176.4,"npv":52148413,"irr":1.0,"payback_years":1.0,"capex":10500000,"annual_revenue":11587777},
-  {"priority":3,"latitude":55.782869300193966,"longitude":37.71754682543382,"power_kw":350,"predicted_demand_kwh":160.2,"npv":46140312,"irr":0.954,"payback_years":2.0,"capex":10500000,"annual_revenue":10524438},
-  {"priority":4,"latitude":55.69351332282682,"longitude":37.614092074158656,"power_kw":350,"predicted_demand_kwh":158.8,"npv":45626804,"irr":0.945,"payback_years":2.0,"capex":10500000,"annual_revenue":10433556},
-  {"priority":5,"latitude":55.77726788295647,"longitude":37.43468065043759,"power_kw":350,"predicted_demand_kwh":137.0,"npv":37521282,"irr":0.807,"payback_years":2.0,"capex":10500000,"annual_revenue":8999007},
-  {"priority":6,"latitude":55.64227726749243,"longitude":37.74850787049763,"power_kw":350,"predicted_demand_kwh":139.6,"npv":38513831,"irr":0.824,"payback_years":2.0,"capex":10500000,"annual_revenue":9174672},
-  {"priority":7,"latitude":55.716020603890165,"longitude":37.41163596786791,"power_kw":350,"predicted_demand_kwh":148.5,"npv":41811423,"irr":0.88,"payback_years":2.0,"capex":10500000,"annual_revenue":9758294},
-  {"priority":8,"latitude":55.72958350559264,"longitude":37.72481644952361,"power_kw":350,"predicted_demand_kwh":129.6,"npv":34770786,"irr":0.76,"payback_years":2.0,"capex":10500000,"annual_revenue":8512212},
-  {"priority":9,"latitude":55.75742692948967,"longitude":37.77324570255901,"power_kw":350,"predicted_demand_kwh":172.5,"npv":50694264,"irr":1.0,"payback_years":1.0,"capex":10500000,"annual_revenue":11330416},
-  {"priority":10,"latitude":55.780334503522965,"longitude":37.40253079192311,"power_kw":350,"predicted_demand_kwh":150.6,"npv":42593888,"irr":0.893,"payback_years":2.0,"capex":10500000,"annual_revenue":9896777},
-  {"priority":11,"latitude":55.78969174917808,"longitude":37.72164410922117,"power_kw":350,"predicted_demand_kwh":128.3,"npv":34305629,"irr":0.752,"payback_years":2.0,"capex":10500000,"annual_revenue":8429887},
-  {"priority":12,"latitude":55.65961470446025,"longitude":37.80505669733959,"power_kw":350,"predicted_demand_kwh":153.7,"npv":43735540,"irr":0.913,"payback_years":2.0,"capex":10500000,"annual_revenue":10098832},
-  {"priority":13,"latitude":55.70990855298811,"longitude":37.58385790152972,"power_kw":350,"predicted_demand_kwh":150.9,"npv":42673856,"irr":0.895,"payback_years":2.0,"capex":10500000,"annual_revenue":9910930},
-  {"priority":14,"latitude":55.8355527884179,"longitude":37.52199482168954,"power_kw":350,"predicted_demand_kwh":157.7,"npv":45230999,"irr":0.938,"payback_years":2.0,"capex":10500000,"annual_revenue":10363504},
-  {"priority":15,"latitude":55.76073240522243,"longitude":37.67280839465796,"power_kw":350,"predicted_demand_kwh":139.2,"npv":38347525,"irr":0.821,"payback_years":2.0,"capex":10500000,"annual_revenue":9145238},
-  {"priority":16,"latitude":55.82848588459861,"longitude":37.69288779063673,"power_kw":350,"predicted_demand_kwh":119.0,"npv":30844359,"irr":0.693,"payback_years":2.0,"capex":10500000,"annual_revenue":7817297},
-  {"priority":17,"latitude":55.877408085483566,"longitude":37.71447142338994,"power_kw":350,"predicted_demand_kwh":115.5,"npv":29542191,"irr":0.671,"payback_years":2.0,"capex":10500000,"annual_revenue":7586834},
-  {"priority":18,"latitude":55.75362791748979,"longitude":37.44722148037796,"power_kw":350,"predicted_demand_kwh":127.3,"npv":33931789,"irr":0.746,"payback_years":2.0,"capex":10500000,"annual_revenue":8363723},
-  {"priority":19,"latitude":55.845166660060364,"longitude":37.54101728628565,"power_kw":350,"predicted_demand_kwh":141.1,"npv":39050002,"irr":0.833,"payback_years":2.0,"capex":10500000,"annual_revenue":9269566},
-  {"priority":20,"latitude":55.75080370696866,"longitude":37.42265200488602,"power_kw":150,"predicted_demand_kwh":92.8,"npv":27136232,"irr":1.0,"payback_years":1.0,"capex":4500000,"annual_revenue":6099112}
-];
+let map, markers = [], existingMarkers = [], allData = [], existingStations = [];
+let currentYear = '2026';
+let stationChartInstance = null;
 
-let map, markers = [], allData = [];
+// ==================== ЗАГРУЗКА ====================
+function loadScenario(year) {
+  currentYear = year;
+  return fetch('locations_' + year + '.json').then(r => r.json());
+}
 
+Promise.all([
+  fetch('existing_stations.json').then(r => r.json()).catch(() => [])
+])
+  .then(([existing]) => {
+    existingStations = existing;
+    return loadScenario('2026');
+  })
+  .then(locations => {
+    allData = locations;
+    initKPI(locations);
+    initMap(locations, existingStations);
+    initTable(locations);
+    initControls();
+    console.log('Загружено: ' + locations.length + ' локаций, ' + existingStations.length + ' существующих ЭЗС');
+  })
+  .catch(err => console.error('Ошибка:', err));
+
+// ==================== KPI ====================
 function initKPI(data) {
-  const avgNpv = data.reduce((s, d) => s + d.npv, 0) / data.length;
+  const totalNpv = data.reduce((s, d) => s + d.npv, 0);
   const avgIrr = data.reduce((s, d) => s + d.irr, 0) / data.length;
   const avgPayback = data.reduce((s, d) => s + d.payback_years, 0) / data.length;
   const totalCapex = data.reduce((s, d) => s + d.capex, 0);
   const avgPower = data.reduce((s, d) => s + d.power_kw, 0) / data.length;
+
   const kpis = [
-    { num: '01', label: 'Приоритетных локаций', value: data.length, suffix: '', sub: 'по результатам оптимизации', decimals: 0 },
+    { num: '01', label: 'Приоритетных локаций', value: data.length, suffix: '', sub: 'сценарий ' + currentYear, decimals: 0 },
     { num: '02', label: 'Средняя мощность', value: avgPower, suffix: ' кВт', sub: 'на одну станцию', decimals: 0 },
-    { num: '03', label: 'Средний NPV', value: avgNpv / 1e6, suffix: ' млн ₽', sub: 'за 10 лет', decimals: 1 },
-    { num: '04', label: 'Средний IRR', value: avgIrr * 100, suffix: '%', sub: 'внутренняя норма доходности', decimals: 0 },
+    { num: '03', label: 'Суммарный NPV', value: totalNpv / 1e6, suffix: ' млн ₽', sub: 'за 10 лет по сети', decimals: 1 },
+    { num: '04', label: 'Средний IRR', value: avgIrr * 100, suffix: '%', sub: 'при загрузке 8–15%', decimals: 1 },
     { num: '05', label: 'Окупаемость', value: avgPayback, suffix: ' лет', sub: 'средний срок возврата', decimals: 1 },
-    { num: '06', label: 'Суммарный CAPEX', value: totalCapex / 1e6, suffix: ' млн ₽', sub: 'инвестиции в топ-20', decimals: 0 }
+    { num: '06', label: 'Суммарный CAPEX', value: totalCapex / 1e6, suffix: ' млн ₽', sub: 'инвестиции', decimals: 0 }
   ];
+
   document.getElementById('kpiGrid').innerHTML = kpis.map(k => `
     <div class="glass-card">
       <div class="kpi-icon">${k.num}</div>
@@ -335,6 +781,7 @@ function initKPI(data) {
       <div class="kpi-sub">${k.sub}</div>
     </div>
   `).join('');
+
   document.querySelectorAll('.kpi-value').forEach(el => {
     animateCounter(el, parseFloat(el.dataset.target), el.dataset.suffix || '', parseInt(el.dataset.decimals) || 0);
   });
@@ -352,9 +799,32 @@ function animateCounter(el, target, suffix, decimals) {
   requestAnimationFrame(tick);
 }
 
-function initMap(data) {
-  map = L.map('map', { zoomControl: true, attributionControl: false }).setView([55.7558, 37.6173], 10);
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+// ==================== КАРТА ====================
+function initMap(data, existing) {
+  if (!map) {
+    map = L.map('map', { zoomControl: true, attributionControl: false }).setView([55.7558, 37.6173], 11);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+  }
+
+  existingMarkers.forEach(m => map.removeLayer(m));
+  existingMarkers = [];
+
+  if (existing && existing.length > 0) {
+    existing.forEach(d => {
+      const m = L.circleMarker([d.latitude, d.longitude], {
+        radius: 4,
+        fillColor: '#94A3B8',
+        color: '#FFFFFF',
+        weight: 1,
+        opacity: 0.9,
+        fillOpacity: 0.9
+      }).addTo(map);
+      const nm = d.name ? d.name : 'Существующая ЭЗС';
+      m.bindPopup('<div class="popup-title">' + nm + '</div><div class="popup-row"><span>Мощность:</span><span>' + d.power_kw + ' кВт</span></div>');
+      existingMarkers.push(m);
+    });
+  }
+
   renderMarkers(data);
 }
 
@@ -363,57 +833,193 @@ function renderMarkers(data) {
   markers.forEach(m => map.removeLayer(m));
   markers = [];
   data.forEach(d => {
-    const color = d.power_kw >= 350 ? '#EF4444' : d.power_kw >= 150 ? '#F59E0B' : '#10B981';
-    const radius = d.power_kw >= 350 ? 11 : d.power_kw >= 150 ? 9 : 7;
+    const color = d.power_kw >= 150 ? '#F59E0B' : '#10B981';
+    const radius = d.power_kw >= 150 ? 9 : 7;
     const marker = L.circleMarker([d.latitude, d.longitude], {
-      radius, fillColor: color, color: '#fff', weight: 2.5, opacity: 1, fillOpacity: 0.9
+      radius: radius,
+      fillColor: color,
+      color: '#fff',
+      weight: 2.5,
+      opacity: 1,
+      fillOpacity: 0.95
     }).addTo(map);
-    marker.bindPopup(`
-      <div class="popup-title">Локация №${d.priority}</div>
-      <div class="popup-row"><span>Мощность:</span><span>${d.power_kw} кВт</span></div>
-      <div class="popup-row"><span>NPV:</span><span>${(d.npv / 1e6).toFixed(1)} млн ₽</span></div>
-      <div class="popup-row"><span>IRR:</span><span>${(d.irr * 100).toFixed(0)}%</span></div>
-      <div class="popup-row"><span>Окупаемость:</span><span>${d.payback_years} лет</span></div>
-    `);
+    marker.on('click', function() { openStationModal(d); });
+    marker.bindPopup(
+      '<div class="popup-title">№' + d.priority + ' · ' + (d.name || 'Локация') + '</div>' +
+      '<div class="popup-row"><span>Мощность:</span><span>' + d.power_kw + ' кВт</span></div>' +
+      '<div class="popup-row"><span>NPV:</span><span>' + (d.npv / 1e6).toFixed(1) + ' млн ₽</span></div>' +
+      '<div class="popup-row"><span>IRR:</span><span>' + (d.irr * 100).toFixed(0) + '%</span></div>' +
+      '<div class="popup-row"><span style="color:#48CAE4;">→ Открыть моделирование</span></div>'
+    );
     markers.push(marker);
   });
 }
 
+// ==================== ТАБЛИЦА ====================
 function initTable(data) {
   document.querySelector('#locTable tbody').innerHTML = data.map(d => {
-    const npvClass = d.npv > 30000000 ? 'good' : d.npv > 15000000 ? '' : 'warn';
-    const payClass = d.payback_years <= 3 ? 'good' : d.payback_years <= 5 ? '' : 'warn';
-    return `<tr>
-      <td class="priority">${d.priority}</td>
-      <td>${d.power_kw} кВт</td>
-      <td>${d.predicted_demand_kwh} кВт·ч</td>
-      <td>${(d.capex / 1e6).toFixed(1)} млн ₽</td>
-      <td class="${npvClass}">${(d.npv / 1e6).toFixed(1)} млн ₽</td>
-      <td>${(d.irr * 100).toFixed(0)}%</td>
-      <td class="${payClass}">${d.payback_years} лет</td>
-    </tr>`;
+    const npvClass = d.npv > 0 ? 'good' : 'warn';
+    const payClass = d.payback_years <= 5 ? 'good' : 'warn';
+    return '<tr onclick="openStationModalByPriority(' + d.priority + ')" style="cursor:pointer;">' +
+      '<td class="priority">' + d.priority + '</td>' +
+      '<td>' + (d.name || '—') + '</td>' +
+      '<td>' + d.power_kw + ' кВт</td>' +
+      '<td>' + d.predicted_demand_kwh + ' кВт·ч</td>' +
+      '<td>' + (d.capex / 1e6).toFixed(1) + ' млн ₽</td>' +
+      '<td class="' + npvClass + '">' + (d.npv / 1e6).toFixed(1) + ' млн ₽</td>' +
+      '<td>' + (d.irr * 100).toFixed(0) + '%</td>' +
+      '<td class="' + payClass + '">' + d.payback_years + ' лет</td>' +
+    '</tr>';
   }).join('');
 }
 
-function initControls() {
-  const pf = document.getElementById('powerFilter');
-  const tf = document.getElementById('topFilter');
-  if (pf) pf.addEventListener('change', applyFilters);
-  if (tf) tf.addEventListener('input', e => {
-    document.getElementById('topValue').textContent = e.target.value;
-    applyFilters();
+// ==================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ====================
+function distanceToCenterKm(lat, lon) {
+  const centerLat = 55.7558;
+  const centerLon = 37.6173;
+  const R = 6371;
+  const dLat = (lat - centerLat) * Math.PI / 180;
+  const dLon = (lon - centerLon) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(centerLat * Math.PI/180) * Math.cos(lat * Math.PI/180) * Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function centerCoefficient(lat, lon) {
+  const dist = distanceToCenterKm(lat, lon);
+  if (dist < 3) return 1.4;
+  if (dist < 8) return 1.2;
+  if (dist < 15) return 1.0;
+  if (dist < 25) return 0.85;
+  return 0.7;
+}
+
+function generateHourlyProfile(avgDemand, locationType, centerCoef) {
+  const profiles = {
+    mall: [8, 5, 3, 3, 5, 12, 25, 40, 50, 55, 60, 70, 78, 82, 85, 88, 90, 95, 100, 98, 90, 70, 40, 15],
+    transport_hub: [10, 6, 4, 6, 18, 50, 78, 95, 100, 85, 60, 50, 50, 55, 52, 58, 68, 88, 96, 100, 88, 62, 32, 14],
+    parking: [12, 8, 5, 5, 10, 25, 45, 62, 72, 78, 82, 92, 98, 100, 96, 90, 80, 65, 50, 42, 32, 26, 18, 12]
+  };
+
+  const baseShape = profiles[locationType] || profiles.parking;
+  const demandFactor = 0.85 + Math.min(avgDemand / 45, 1.3) * 0.23;
+  const totalFactor = demandFactor * (centerCoef || 1.0);
+
+  return baseShape.map(v => {
+    const scaled = v * totalFactor;
+    return Math.min(Math.round(scaled), 100);
   });
+}
+
+// ==================== МОДАЛКА СТАНЦИИ ====================
+function openStationModal(d) {
+  document.getElementById('stationTitle').textContent = '№' + d.priority + ' · ' + (d.name || 'Локация');
+  document.getElementById('stationType').textContent = d.type === 'mall' ? 'Торговый центр' : d.type === 'transport_hub' ? 'Транспортный узел' : 'Парковка';
+  document.getElementById('stationPower').textContent = d.power_kw + ' кВт';
+  document.getElementById('stationDemand').textContent = d.predicted_demand_kwh + ' кВт·ч/ч';
+  document.getElementById('stationUtilization').textContent = ((d.utilization || 0.10) * 100).toFixed(1) + '%';
+  document.getElementById('stationNpv').textContent = (d.npv / 1e6).toFixed(1) + ' млн ₽';
+  document.getElementById('stationIrr').textContent = (d.irr * 100).toFixed(0) + '%';
+  document.getElementById('stationPayback').textContent = d.payback_years + ' лет';
+
+  const centerCoef = centerCoefficient(d.latitude, d.longitude);
+  const profile = generateHourlyProfile(d.predicted_demand_kwh, d.type, centerCoef);
+
+  let maxIdx = 0;
+  for (let i = 1; i < 24; i++) if (profile[i] > profile[maxIdx]) maxIdx = i;
+  const peakStart = maxIdx;
+  const peakEnd = (maxIdx + 2) % 24;
+  document.getElementById('stationPeak').textContent = String(peakStart).padStart(2,'0') + ':00–' + String(peakEnd).padStart(2,'0') + ':00';
+
+  const posts = d.power_kw >= 150 ? 4 : 2;
+  document.getElementById('recPosts').textContent = 'Рекомендуется ' + posts + ' поста по ' + d.power_kw + ' кВт';
+  document.getElementById('recPeak').textContent = 'Пиковая загрузка: ' + String(peakStart).padStart(2,'0') + ':00–' + String(peakEnd).padStart(2,'0') + ':00 (' + profile[maxIdx] + '% загрузки)';
+  document.getElementById('recNeighbors').textContent = 'После открытия снизит нагрузку на соседние станции на 10–15%';
+
+  document.getElementById('stationModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  setTimeout(() => drawStationChart(profile), 100);
+}
+
+function openStationModalByPriority(priority) {
+  const d = allData.find(x => x.priority === priority);
+  if (d) openStationModal(d);
+}
+
+function drawStationChart(profile) {
+  const ctx = document.getElementById('stationChart');
+  if (!ctx) return;
+  if (stationChartInstance) stationChartInstance.destroy();
+  const labels = Array.from({length: 24}, (_, i) => String(i).padStart(2,'0') + ':00');
+  stationChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Загрузка, %',
+        data: profile,
+        backgroundColor: profile.map(v =>
+          v >= 75 ? 'rgba(239, 68, 68, 0.85)' :
+          v >= 50 ? 'rgba(245, 158, 11, 0.85)' :
+          v >= 25 ? 'rgba(72, 202, 228, 0.85)' :
+                    'rgba(16, 185, 129, 0.75)'
+        ),
+        borderRadius: 4,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#0C1446',
+          titleColor: '#48CAE4',
+          bodyColor: '#FFFFFF',
+          borderColor: '#48CAE4',
+          borderWidth: 1,
+          padding: 12
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.6)', font: { size: 10 } } },
+        y: { beginAtZero: true, max: 100, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.6)', font: { size: 11 }, callback: v => v + '%' } }
+      }
+    }
+  });
+}
+
+function closeStationModal() {
+  document.getElementById('stationModal').classList.remove('open');
+  document.body.style.overflow = '';
+  if (stationChartInstance) { stationChartInstance.destroy(); stationChartInstance = null; }
+}
+
+// ==================== ФИЛЬТРЫ ====================
+function initControls() {
+  const yf = document.getElementById('yearFilter');
+  const pf = document.getElementById('powerFilter');
+  if (yf) yf.addEventListener('change', function(e) {
+    loadScenario(e.target.value).then(data => {
+      allData = data;
+      initKPI(data);
+      renderMarkers(data);
+      initTable(data);
+    });
+  });
+  if (pf) pf.addEventListener('change', applyFilters);
 }
 
 function applyFilters() {
   if (!allData || allData.length === 0) return;
   const minPower = parseInt(document.getElementById('powerFilter').value);
-  const topN = parseInt(document.getElementById('topFilter').value);
-  const filtered = allData.filter(d => d.power_kw >= minPower).slice(0, topN);
+  const filtered = allData.filter(d => d.power_kw >= minPower);
   renderMarkers(filtered);
   initTable(filtered);
 }
 
+// ==================== МЕНЮ ====================
 function initMenu() {
   const menuBtn = document.getElementById('menuBtn');
   const menuOverlay = document.getElementById('menuOverlay');
@@ -424,10 +1030,43 @@ function initMenu() {
   menuBtn.addEventListener('click', openMenu);
   if (menuClose) menuClose.addEventListener('click', closeMenu);
   menuOverlay.addEventListener('click', e => { if (e.target === menuOverlay) closeMenu(); });
-  document.querySelectorAll('.menu-link').forEach(l => l.addEventListener('click', closeMenu));
+  document.querySelectorAll('.menu-link[href]').forEach(l => l.addEventListener('click', closeMenu));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 }
 
+// ==================== МОДАЛКИ ====================
+function initModals() {
+  document.querySelectorAll('.menu-open-modal').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const modal = document.getElementById(btn.dataset.modal);
+      if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        const overlay = document.getElementById('menuOverlay');
+        if (overlay) overlay.classList.remove('open');
+      }
+    });
+  });
+  document.querySelectorAll('.modal-overlay').forEach(modal => {
+    modal.addEventListener('click', e => {
+      if (e.target === modal) { modal.classList.remove('open'); document.body.style.overflow = ''; }
+    });
+  });
+  document.querySelectorAll('[data-close-modal]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const modal = btn.closest('.modal-overlay');
+      if (modal) { modal.classList.remove('open'); document.body.style.overflow = ''; }
+    });
+  });
+  document.querySelectorAll('[data-close-station]').forEach(btn => {
+    btn.addEventListener('click', closeStationModal);
+  });
+  const st = document.getElementById('stationModal');
+  if (st) st.addEventListener('click', e => { if (e.target.id === 'stationModal') closeStationModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeStationModal(); });
+}
+
+// ==================== ЯЗЫК ====================
 function initLang() {
   const langBtn = document.getElementById('langBtn');
   if (!langBtn) return;
@@ -446,20 +1085,46 @@ function initLang() {
     const newLang = isEn ? 'en' : 'ru';
     localStorage.setItem('site-lang', newLang);
     applyLanguage(newLang);
-    initKPI(allData);
-    initTable(allData);
   });
 }
 
-// Инициализация после загрузки DOM
+// ==================== СТАРТ ====================
+function initDownload() {
+  const btn = document.getElementById('downloadCsvBtn');
+  if (!btn) return;
+  btn.addEventListener('click', function() {
+    if (!allData || allData.length === 0) return;
+    const headers = ['priority', 'name', 'type', 'power_kw', 'predicted_demand_kwh', 'capex', 'npv', 'irr', 'payback_years'];
+    const rows = [headers.join(',')];
+    allData.forEach(d => {
+      rows.push([
+        d.priority,
+        '"' + (d.name || '').replace(/"/g, '""') + '"',
+        d.type || '',
+        d.power_kw,
+        d.predicted_demand_kwh,
+        d.capex,
+        d.npv,
+        d.irr,
+        d.payback_years
+      ].join(','));
+    });
+    const csv = '\uFEFF' + rows.join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'azimuth_locations_' + currentYear + '.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-  allData = DATA;
-  initKPI(DATA);
-  initMap(DATA);
-  initTable(DATA);
-  initControls();
   initMenu();
+  initModals();
   initLang();
+  initDownload();
 });
 </script>
 
